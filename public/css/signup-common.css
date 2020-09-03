@@ -1,0 +1,99 @@
+/* retrievepwd, fysignup, fyregister, fyretrieve  */
+* {
+  touch-action: pan-y;
+}
+body {
+  background: #efeff4;
+}
+.content {
+  padding: 0 0.5rem;
+  background: #fff;
+  background: url(~assets/loginBg-xuzhou.png) center top no-repeat;
+  background-size: contain;
+}
+.signup-header {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 0.2rem;
+}
+.head {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #151515;
+  margin: 0;
+  padding: 0;
+}
+.list-block {
+  padding: 1rem 0.5rem;
+  background: #fff;
+  margin: 0;
+  position: relative;
+  top: 7rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+.list-block .item-inner {
+  padding-top: 0.2rem;
+  padding-right: 0;
+}
+.list-block .item-inner {
+  flex-direction: row;
+  /* align-items: flex-start; */
+}
+.list-block ul:before,
+.list-block ul::after,
+.list-block .item-inner:after {
+  content: none;
+}
+.list-block .item-inner .item-title {
+  font-size: 0.8rem !important;
+  width: 5rem;
+}
+.list-block .item-inner input {
+  font-size: 0.7rem;
+  border: 1px solid #f2f2f2;
+  margin: 8px 0;
+}
+.type-box {
+  display: flex;
+  justify-content: space-around;
+}
+.type-box .button {
+  width: 46%;
+}
+.button {
+  border-radius: 2px;
+}
+.find-password {
+  color: #0894ec;
+  font-size: 0.7rem;
+  float: right;
+  line-height: 2;
+}
+.memory-password {
+  color: #0894ec;
+  font-size: 0.7rem;
+  float: left;
+  line-height: 2;
+  display: flex;
+  align-items: center;
+}
+.memory-password div {
+  float: left;
+  margin: 0.3rem;
+}
+.hint {
+  float: left;
+  color: #f6383a;
+  font-size: 0.7rem;
+  display: none;
+}
+.password-hint {
+  float: left;
+  color: #f6383a;
+  font-size: 0.7rem;
+  display: none;
+}
+#next, #new-user-submit {
+  margin-bottom: 0.75rem;
+}

@@ -1,0 +1,173 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>徐州市电子通行证</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+    <!-- <link rel="shortcut icon" href="/favicon.ico" /> -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css" />
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css" />
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1624905_g5gp6mz1ksp.css" />
+  <link href="check.a03890c5.css" rel="stylesheet"></head>
+  <body>
+    <div class="page-group" id="container">
+      <div class="page page-current">
+        <div class="content">
+          <div class="card-wrapper">
+            <div class="info-container">
+              <div class="info">
+                <div class="subtitle">
+                  <span id="currentCity">电子通行证</span>
+                </div>
+                <div id="username"></div>
+                <div class="section">
+                  <div id="gender-wrapper"></div>
+                  <div id="userId"></div>
+                </div>
+
+                <div class="section">
+                  <div class="label">
+                    <a href="#" class="button" id="personType"></a>
+                  </div>
+                  <div class="check-time-content" id="returnDays-wrapper">
+                    返程<b id="returnDays" class="check-num">0</b>天
+                  </div>
+                  <div class="check-time-content" id="check-days-wrapper"></div>
+                </div>
+              </div>
+
+              <div class="img-wrapper" id="tag-img-wrapper"></div>
+            </div>
+
+            <div class="address-wrapper" id="health-status-wrapper"></div>
+
+            <div class="address-wrapper" id="returnAddress-wrapper">
+              <div class="atitle">返程地：</div>
+              <div class="avalue" id="returnAddress"></div>
+            </div>
+
+            <div class="address-wrapper">
+              <div class="atitle">居住地址：</div>
+              <div class="avalue" id="address"></div>
+            </div>
+
+            <div class="address-wrapper" id="orgFlag">
+              <div class="atitle">上学/工作单位：</div>
+              <div class="avalue" id="organization"></div>
+            </div>
+
+            <div class="stat-data">
+              <div class="item">
+                <span>小区：</span>
+                <span id="communityIo-wrapper"></span>
+              </div>
+
+              <div class="item">
+                <span>公司：</span>
+                <span id="officeIo-wrapper"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-wrapper">
+            <div class="info-container">
+              <div class="health-subtitle">
+                健康核验
+              </div>
+              <div class="station-select">
+                <select name="stationName" class="stationName">
+                  <option value="" disabled selected style="display:none;">请选择当前检测站</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="item-content">
+              <form id="userForm" style="width:100%">
+                <div class="item-content-body">
+                  <div class="item-inner">
+                    <div class="item-title label">体温情况</div>
+                    <div class="item-input" id="temperature">
+                      <label><input type="radio" value="0" name="temperature" />发烧</label>
+                      <label
+                        ><input
+                          type="radio"
+                          value="1"
+                          name="temperature"
+                          checked="true"
+                        />正常</label
+                      >
+                    </div>
+                  </div>
+
+                  <div class="item-inner">
+                    <div class="item-title label">是否有咳嗽</div>
+                    <div class="item-input" id="cough">
+                      <label><input type="radio" value="0" name="cough" />有</label>
+                      <label><input type="radio" value="1" name="cough" checked="true" />无</label>
+                    </div>
+                  </div>
+
+                  <div class="item-inner">
+                    <div class="item-title label">
+                      身份证和电子凭证是否一致
+                    </div>
+                    <div class="item-input" id="identityConsistency">
+                      <label
+                        ><input
+                          type="radio"
+                          value="0"
+                          name="identityConsistency"
+                          checked="true"
+                        />是</label
+                      >
+                      <label><input type="radio" value="1" name="identityConsistency" />否</label>
+                    </div>
+                  </div>
+
+                  <div class="item-inner" id="communityCardDiv">
+                    <div class="item-title label">
+                      是否有小区通行证:
+                    </div>
+                    <div class="item-input" id="card">
+                      <label><input type="radio" value="0" name="card" checked="true" />是</label>
+                      <label><input type="radio" value="1" name="card" />否</label>
+                    </div>
+                  </div>
+                  <div class="item-inner" id="certificateDiv">
+                    <div class="item-title label">
+                      是否有复工证明:
+                    </div>
+                    <div class="item-input" id="certificate">
+                      <label
+                        ><input type="radio" value="0" name="certificate" checked="true" />是</label
+                      >
+                      <label><input type="radio" value="1" name="certificate" />否</label>
+                    </div>
+                  </div>
+
+                  <div class="item-inner">
+                    <div class="item-title label">备注信息</div>
+                    <div class="item-input" id="comment">
+                      <input type="text" placeholder="在此输入备注信息" name="comment" />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div id="submit-buttons-container"></div>
+          <div id="response-container"></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js"></script>
+    <script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://webapi.amap.com/maps?v=1.4.15&key=b94081c7a928169c4d748854b4b8bdfb&plugin=AMap.Geolocation,AMap.Geocoder"
+    ></script>
+  <script type="text/javascript" src="check.9b8c5195.js"></script></body>
+</html>

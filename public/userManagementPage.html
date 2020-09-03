@@ -1,0 +1,484 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <link href="//g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css" rel="stylesheet" />
+    <link href="//g.alicdn.com/sj/dpl/1.5.1/css/sui-append.min.css" rel="stylesheet" />
+    <link href="./public/workspace/iconfont/iconfont.css" rel="stylesheet" />
+  <link href="userManagementPage.efe0499b.css" rel="stylesheet"></head>
+  <body>
+    <!-- header start-->
+    <div class="header">
+      <span class="logo-content icon-pc-logo"></span>
+      <span class="header-title"></span>
+      <span class="header-user"
+        ><i class="icon-user"></i>
+        <span class="sui-dropdown"
+          ><span class="dropdown-inner">
+            <a
+              role="button"
+              data-toggle="dropdown"
+              href="javascript:void(0);"
+              class="dropdown-toggle"
+              ><span class="user-info"></span> <i class="caret"></i
+            ></a>
+            <ul role="menu" aria-labelledby="drop1" class="sui-dropdown-menu">
+              <li role="presentation">
+                <a role="menuitems" tabindex="-1" href="/workspace.html">首页</a>
+                <a role="menuitem" tabindex="-1" href="javascript:void(0);" id="logout">退出</a>
+              </li>
+            </ul>
+          </span></span
+        >
+      </span>
+    </div>
+    <!-- header end-->
+    <div class="layout-content">
+      <!-- menu -->
+      <div class="side-menu">
+        <ul class="side-menu-list">
+          <li class="side-menu-item">
+            <a href="#userManage" onclick="event.preventDefault();onTabNavClick(this)">用户管理</a>
+          </li>
+          <li class="side-menu-item">
+            <a href="#logTable" onclick="event.preventDefault();onTabNavClick(this)">日志管理</a>
+          </li>
+          <li class="side-menu-item" id="epidemic">
+            <a href="#epidemicArea" onclick="event.preventDefault();onTabNavClick(this)"
+              >重点疫区</a
+            >
+          </li>
+        </ul>
+      </div>
+      <!-- menu -->
+      <div class="page-record tab-content" id="tabContent">
+        <div class="breadcrumb">
+          <span class="breadcrumb-item item">用户管理</span>
+        </div>
+
+        <!-- start of userManage -->
+        <div id="userManage" class="tab-pane active">
+          <div class="filter-option search-zone">
+            <!-- 详细筛选 -->
+            <div class="detail-filter">
+              <span class="control-group button-group">
+                <a
+                  href="javascript:void(0);"
+                  id="deleteBtn"
+                  class="sui-btn btn-border filter-button-group"
+                  style="width:100px;display:none;"
+                  >批量删除</a
+                >
+                <!-- 0228 note 先不做
+                <a href="javascript:void(0);" id="exportBtn" class="sui-btn btn-border filter-button-group">
+                导入
+              </a> -->
+
+                <!-- 0228 note 先不做
+               <a href="javascript:void(0);" id="exportBtn" class="sui-btn btn-border filter-button-group">
+                <i class="sui-icon icon-upload-alt"></i>导出
+              </a> -->
+              </span>
+
+              <span class="control-group">
+                <label for="name" class="control-label label-title first">姓名</label>
+                <div class="controls">
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder=""
+                    style="width: 100px;"
+                    class="input-medium"
+                  />
+                </div>
+              </span>
+
+              <span class="control-group">
+                <label for="phone" class="control-label label-title">手机号</label>
+                <div class="controls">
+                  <input
+                    type="text"
+                    id="phone"
+                    placeholder=""
+                    style="width: 100px;"
+                    class="input-medium"
+                  />
+                </div>
+              </span>
+
+              <span class="control-group">
+                <label for="personnelType" class="control-label label-title first">人员类型</label>
+                <div class="controls">
+                  <span class="sui-dropdown dropdown-bordered input-source select"
+                    ><span class="dropdown-inner">
+                      <a
+                        role="button"
+                        href="javascript:void(0);"
+                        data-toggle="dropdown"
+                        data-trigger="hover"
+                        class="dropdown-toggle"
+                      >
+                        <input id="personnelType" name="personnelType" type="hidden" />
+                        <i class="caret"></i><span></span>
+                      </a>
+                      <ul
+                        role="menu"
+                        aria-labelledby="drop1"
+                        class="sui-dropdown-menu"
+                        id="personnelTypeForSearch"
+                      >
+                        <li role="presentation">
+                          <a role="menuitem" tabindex="-1" href="#" value="">全部</a>
+                        </li>
+                      </ul>
+                    </span>
+                  </span>
+                </div>
+              </span>
+            </div>
+
+            <span class="control-group button-group">
+              <a
+                href="javascript:void(0);"
+                id="searchBtn"
+                class="sui-btn btn-border filter-button-group"
+                ><i class="sui-icon icon-search"></i>搜索</a
+              >
+              <a
+                href="javascript:void(0);"
+                id="resetBtn"
+                class="sui-btn btn-border filter-button-group"
+                >重置</a
+              >
+              <a
+                href="javascript:void(0);"
+                id="exportBtn"
+                style="display:none"
+                class="sui-btn btn-border filter-button-group"
+              >
+                <i class="sui-icon icon-upload-alt"></i>导出
+              </a>
+              <a
+                href="javascript:void(0);"
+                id="addUserBtn"
+                style="display:none"
+                class="sui-btn btn-border filter-button-group"
+                >新建</a
+              >
+            </span>
+          </div>
+          <div class="page-list">
+            <!-- 列表 -->
+            <div class="list">
+              <table class="sui-table">
+                <thead>
+                  <tr>
+                    <th class="width:5%;" style="position:relative;">
+                      <label
+                        class="checkbox"
+                        for="list-th-checkbox"
+                        style="position:absolute;top:0;right:0;left:0;bottom:0;display:flex;
+                    align-items:center;justify-content:center;"
+                      >
+                        <input type="checkbox" id="list-th-checkbox" />
+                      </label>
+                    </th>
+                    <th class="td-id">序号</th>
+                    <th style="width:10%;">姓名</th>
+                    <th style="width:10%;word-break:break-all;">手机号</th>
+                    <th>性别</th>
+                    <th style="width:12%;word-break:break-all;">身份证号</th>
+                    <th>人员类型</th>
+                    <th style="width:8%">状态</th>
+                    <th style="width:13%;word-break:break-all;">创建时间</th>
+                    <th class="thead-option">操作</th>
+                  </tr>
+                </thead>
+                <div class="table-tbody">
+                  <tbody class="tbody-list"></tbody>
+                </div>
+              </table>
+            </div>
+            <!-- 分页 -->
+            <div class="pagination-content">
+              <div class="pagination"></div>
+              <div class="pagination-extra">
+                共有<span class="label"></span>条，每页显示
+                <span class="sui-dropdown dropdown-bordered page-size select"
+                  ><span class="dropdown-inner">
+                    <a
+                      role="button"
+                      href="javascript:void(0);"
+                      data-toggle="dropdown"
+                      data-trigger="hover"
+                      class="dropdown-toggle"
+                    >
+                      <input value="20" id="pageSizeChange" name="pageSize" type="hidden" />
+                      <i class="caret"></i><span>20</span>
+                    </a>
+                    <ul role="menu" aria-labelledby="drop2" class="sui-dropdown-menu">
+                      <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#" value="10">10</a>
+                      </li>
+                      <li role="presentation" class="active">
+                        <a role="menuitem" tabindex="-1" href="#" value="20">20</a>
+                      </li>
+                      <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#" value="50">50</a>
+                      </li>
+                    </ul>
+                  </span></span
+                >
+                条
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of userManage -->
+
+        <!-- start of logTable -->
+        <div id="logTable" class="tab-pane">
+          <div class="filter-option search-zone">
+            <!-- 详细筛选 -->
+            <div class="detail-filter">
+              <span class="control-group">
+                <label for="log-account" class="control-label label-title first">账号</label>
+                <div class="controls">
+                  <input
+                    type="text"
+                    id="log-account"
+                    placeholder=""
+                    style="width: 200px;"
+                    class="input-medium"
+                  />
+                </div>
+              </span>
+              <div id="logTable-date" class="control-group input-daterange">
+                <label class="control-label label-title">登记时间</label>
+                <div class="controls">
+                  <input
+                    type="text"
+                    class="input-medium input-date startDate"
+                    style="width: 100px;"
+                  /><span>-</span>
+                  <input
+                    type="text"
+                    class="input-medium input-date endDate"
+                    style="width: 100px;"
+                  />
+                </div>
+              </div>
+            </div>
+            <span class="control-group button-group">
+              <a
+                href="javascript:void(0);"
+                id="log-searchBtn"
+                class="sui-btn btn-border filter-button-group"
+              >
+                <i class="sui-icon icon-search"></i>搜索
+              </a>
+              <a
+                href="javascript:void(0);"
+                id="log-resetBtn"
+                class="sui-btn btn-border filter-button-group"
+                >重置</a
+              >
+            </span>
+          </div>
+          <div class="page-list">
+            <!-- 列表 -->
+            <div class="list">
+              <table class="sui-table">
+                <thead>
+                  <tr>
+                    <th>序号</th>
+                    <th>账号</th>
+                    <th>姓名</th>
+                    <th>操作时间</th>
+                    <th>操作说明</th>
+                  </tr>
+                </thead>
+                <tbody class="tbody-list"></tbody>
+              </table>
+            </div>
+            <div class="pagination-content">
+              <div class="pagination"></div>
+              <div class="pagination-extra">
+                共有<span class="label"></span>条，每页显示
+                <span class="sui-dropdown dropdown-bordered page-size select">
+                  <span class="dropdown-inner">
+                    <a
+                      role="button"
+                      href="javascript:void(0);"
+                      data-toggle="dropdown"
+                      data-trigger="hover"
+                      class="dropdown-toggle"
+                    >
+                      <input value="20" id="log-pageSizeChange" name="pageSize" type="hidden" />
+                      <i class="caret"></i><span>20</span>
+                    </a>
+                    <ul role="menu" aria-labelledby="drop2" class="sui-dropdown-menu">
+                      <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#" value="10">10</a>
+                      </li>
+                      <li role="presentation" class="active">
+                        <a role="menuitem" tabindex="-1" href="#" value="20">20</a>
+                      </li>
+                      <li role="presentation">
+                        <a role="menuitem" tabindex="-1" href="#" value="50">50</a>
+                      </li>
+                    </ul>
+                  </span>
+                </span>
+                条
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- start of logTable -->
+
+        <!-- start of epidemicArea -->
+        <div id="epidemicArea" class="tab-pane">
+          <div class="wrap-content search-zone">
+            <div class="wrap-content-title-abroad">
+              <div>国外重点疫区设置</div>
+              <div class="add-country" onclick="addCountry()">添加国家</div>
+            </div>
+            <div class="wrap-content-body" id="abroad-content"></div>
+
+            <div class="control-group" style="display: block">
+              <label class="item-title wrap-content-title">国内高风险疫区设置（返程14天内红码）</label>
+              <div class="control-list" id="controlList">
+                <div class="controls">
+                  <select
+                    name="epidemicProv"
+                    class="provinces input-medium"
+                    onchange="p_change(this, '请选择城市', '请选择区（县）','请选择乡镇（街道）')"
+                    style="width: 100px;"
+                  >
+                    <option value="" disabled selected style="display:none;">请选择省</option>
+                  </select>
+                  <select
+                    name="epidemicCity"
+                    class="city input-medium"
+                    onchange="c_change(this, '请选择区（县）','请选择乡镇（街道）')"
+                  >
+                    <option value="" disabled selected style="display:none;">请选择城市</option>
+                  </select>
+                  <select
+                    name="epidemicDistrict"
+                    class="area input-medium"
+                    onchange="a_change(this,'请选择乡镇（街道）')"
+                  >
+                    <option value="" disabled selected style="display:none;">请选择区（县)</option>
+                  </select>
+                  <span class="addBtn" id="addBtn">+</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="control-group middle-control" style="display: block">
+              <label class="item-title wrap-content-title">国内中风险疫区设置（返程14天内橙码）</label>
+              <div class="control-list" id="controMiddleList">
+                <div class="controls">
+                  <select
+                          name="epidemicProv"
+                          class="provinces input-medium"
+                          onchange="p_change(this, '请选择城市', '请选择区（县）','请选择乡镇（街道）')"
+                          style="width: 100px;"
+                  >
+                    <option value="" disabled selected style="display:none;">请选择省</option>
+                  </select>
+                  <select
+                          name="epidemicCity"
+                          class="city input-medium"
+                          onchange="c_change(this, '请选择区（县）','请选择乡镇（街道）')"
+                  >
+                    <option value="" disabled selected style="display:none;">请选择城市</option>
+                  </select>
+                  <select
+                          name="epidemicDistrict"
+                          class="area input-medium"
+                          onchange="a_change(this,'请选择乡镇（街道）')"
+                  >
+                    <option value="" disabled selected style="display:none;">请选择区（县)</option>
+                  </select>
+                  <span class="addBtn" id="addMidBtn">+</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-group">
+              <button id="btn-cancel" type="button" class="sui-btn btn-default btn-large">
+                取消
+              </button>
+              <button id="btn-submit-form" type="button" class="sui-btn btn-primary btn-large">
+                保存
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- end of epidemicArea -->
+      </div>
+    </div>
+
+    <div
+      id="myModal-create"
+      tabindex="-1"
+      role="dialog"
+      data-hasfoot="false"
+      data-backdrop="static"
+      class="sui-modal hide fade"
+      style="height: 240px;"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" onclick="closeBtn()" aria-hidden="true" class="sui-close">
+              ×
+            </button>
+            <h4 id="myModalLabel" class="modal-title">国家添加</h4>
+          </div>
+          <div class="modal-body" id="modal-body" style="height: 0;">
+            <input class="country" id="country" placeholder="请输入国家名称" />
+            <div class="tip">*重点疫区国家一经添加无法修改删除，请慎重添加</div>
+          </div>
+          <div class="modal-footer" id="myModalFooter" style="text-align: center;">
+            <button id="submitCountry" type="button" class="sui-btn btn-primary btn-large">
+              确定
+            </button>
+            <button type="button" onclick="closeBtn()" class="sui-btn btn-default btn-large">
+              取消
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--template-->
+    <script type="text/html" id="epidemicAreaList-template">
+      <div class="wrap-checkbox-name">
+        {{each}}
+        <div class="wrap-checkbox">
+          {{each model as item i }}
+          <label class="checkbox-pretty inline" data-menuId="{{item.epidemicCountry}}">
+            <input type="checkbox" name="{{item.epidemicCountry}}" />
+            <span>{{item.epidemicCountry}}</span>
+          </label>
+          {{/each}}
+        </div>
+        {{/each}}
+      </div>
+    </script>
+    <script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="//g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+    <script tpe="text/javascript" src="./public/workspace/template-web.js"></script>
+    <script tpe="text/javascript" src="./public/workspace/util.js"></script>
+    <script tpe="text/javascript" src="./public/workspace/config.js"></script>
+    <script tpe="text/javascript" src="./public/watermark.js"></script>
+    <script tpe="text/javascript" src="./public/workspace/userManagementPage.js"></script>
+    <script tpe="text/javascript" src="./public/workspace/login.js"></script>
+  <script type="text/javascript" src="userManagementPage.f780708c.js"></script></body>
+</html>

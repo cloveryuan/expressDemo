@@ -1,0 +1,183 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>疫情人员登记系统</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css" />
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1624905_g5gp6mz1ksp.css" />
+    <link rel="stylesheet" href="./public/picker/MultiPicker.css" />
+  <link href="fyregister.b4ca12dc.css" rel="stylesheet"></head>
+  <body>
+    <div id="targetContainer"></div>
+    <div class="page-group">
+      <div class="page page-current" id="step0">
+        <div class="content">
+          <div class="list-block">
+            <form id="fyregister-step1-form">
+              <div class="signup-header">
+                <div>徐州市疫情防控</div>
+                <div>核验人员认证系统</div>
+              </div>
+              <ul>
+                <li>
+                  <div class="item-inner">
+                    <div class="item-title label">人员姓名</div>
+                    <div class="item-input">
+                      <input type="text" name="realName" placeholder="请输入姓名" />
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-inner">
+                    <div class="item-title label">人员类型</div>
+                    <div class="item-input" style="margin-top: 0;">
+                      <select
+                        name="userType"
+                        placeholder="请选择人员类型"
+                        id="ptLabel"
+                        class="fyryselect"
+                      >
+                        <option value="0">警务人员</option
+                        ><option value="1">社区工作人员</option
+                        ><option value="2">物业保安</option
+                        ><option value="3">其他检疫人员</option>
+                      </select>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-inner">
+                    <div class="item-title label">身份证号</div>
+                    <div class="item-input">
+                      <input type="text" placeholder="填写身份证号" name="identityCard" />
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-inner">
+                    <div class="item-title label">工作单位</div>
+                    <div class="item-input">
+                      <input type="text" name="companyName" placeholder="请填写工作单位" />
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-inner">
+                    <div class="item-title label">工作职务</div>
+                    <div class="item-input">
+                      <input type="text" name="job" placeholder="请填写工作职务" />
+                    </div>
+                  </div>
+                </li>
+                <li style="margin: 0.6rem 0;">
+                  <a id="toStep1" href="#step1" class="button button-big button-fill">下一步</a>
+                </li>
+                <li>
+                  <a id="login" class="button button-big back returnLogin">登录</a>
+                </li>
+              </ul>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="page" id="step1">
+        <div class="content">
+          <div class="list-block">
+            <div class="signup-header">
+              <div>徐州市疫情防控</div>
+              <div>核验人员认证系统</div>
+            </div>
+            <ul>
+              <li>
+                <div class="item-inner">
+                  <div class="item-title label">检测站</div>
+                  <div class="item-input">
+                    <div class="item-select station-select">
+                      <input
+                        id="pickInput"
+                        readonly
+                        type="text"
+                        placeholder="请选择"
+                        name="checkName"
+                      />
+                      <select id="jiancezhan0" name="domicileCity" class="jiancezhan">
+                        <option value="" disabled selected style="display: none;">检测站</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-inner">
+                  <div class="item-title label"></div>
+                  <div class="item-input">
+                    <div>
+                      <span class="addCheckName">新增一个</span>
+                      （最多可添加5个）
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li style="margin-top: 1rem;">
+                <div class="item-inner inline-btn">
+                  <a id="toNewUser" href="#new-user" class="button button-big button-fill"
+                    >下一步</a
+                  >
+                  <a id="toNewUser-back" class="button button-big back">上一步</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="page" id="new-user">
+        <form id="new-fyuser-form">
+          <div class="content">
+            <div class="list-block">
+              <div class="signup-header"></div>
+              <ul>
+                <li>
+                  <div class="item-inner">
+                    <div class="item-title label">手机号码</div>
+                    <div class="item-input">
+                      <input type="text" name="nuphone" placeholder="请输入登录手机号码" />
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-inner">
+                    <div class="item-title label">验证码</div>
+                    <div class="item-input">
+                      <input type="text" name="verifycode" placeholder="请填写验证码" />
+                    </div>
+                    <a class="button button-fill verifycode" id="verifycode">获取</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="item-inner">
+                    <div class="item-title label">设置密码</div>
+                    <div class="item-input">
+                      <input type="password" name="nupassword" placeholder="请设置登录密码" />
+                    </div>
+                  </div>
+                </li>
+                <li style="margin-top: 1rem;">
+                  <div class="item-inner inline-btn">
+                    <a id="new-fyuser-submit" class="button button-big button-fill">提交注册</a>
+                    <a class="button button-big back">上一步</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script type="text/javascript" src="//g.alicdn.com/sj/lib/zepto/zepto.min.js"></script>
+    <script type="text/javascript" src="//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js"></script>
+    <script type="text/javascript" src="./public/picker/MultiPicker.js"></script>
+  <script type="text/javascript" src="fyregister.ce0e66df.js"></script></body>
+</html>

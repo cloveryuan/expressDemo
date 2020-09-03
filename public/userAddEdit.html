@@ -1,0 +1,238 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title></title>
+    <link href="//g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css" rel="stylesheet" />
+    <link href="//g.alicdn.com/sj/dpl/1.5.1/css/sui-append.min.css" rel="stylesheet" />
+    <link href="./public/workspace/iconfont/iconfont.css" rel="stylesheet" />
+  <link href="userAddEdit.81fb73b1.css" rel="stylesheet"></head>
+  <body>
+    <!-- header -->
+    <div class="header">
+      <span class="logo-content icon-pc-logo"></span>
+      <span class="header-title"></span>
+      <span class="header-user"
+        ><i class="icon-user"></i>
+        <span class="sui-dropdown"
+          ><span class="dropdown-inner">
+            <a
+              role="button"
+              data-toggle="dropdown"
+              href="javascript:void(0);"
+              class="dropdown-toggle"
+            >
+              <span class="user-info"></span> <i class="caret"></i
+            ></a>
+            <ul role="menu" aria-labelledby="drop1" class="sui-dropdown-menu">
+              <li role="presentation">
+                <a role="menuitems" tabindex="-1" href="/workspace.html">首页</a>
+                <a role="menuitem" tabindex="-1" href="javascript:void(0);" id="logout">退出</a>
+              </li>
+            </ul>
+          </span></span
+        >
+      </span>
+    </div>
+    <!-- header -->
+    <div class="layout-content">
+      <!-- menu -->
+      <div class="side-menu">
+        <ul class="side-menu-list">
+          <li class="side-menu-item">
+            <a href="/userManagementPage.html">用户管理</a>
+          </li>
+        </ul>
+      </div>
+      <!-- menu -->
+      <div class="page-record">
+        <div class="breadcrumb">
+          <span class="breadcrumb-item">
+            <a href="/userManagementPage.html">用户管理</a>
+          </span>
+          <span class="breadcrumb-item" id="breadcrumbText"></span>
+        </div>
+        <div class="tab-content" id="tabContent">
+          <div class="item-content">
+            <form id="userinfo-form">
+              <div class="item-content-title">基本信息</div>
+              <div class="item-content-body">
+                <div class="item-inner">
+                  <div class="item-name">
+                    <label class="item-title">姓名</label>
+                    <div class="item-input">
+                      <input type="text" placeholder="填写您的姓名" name="name" />
+                    </div>
+                  </div>
+                  <div class="item-name">
+                    <label class="item-title">性别</label>
+                    <div class="item-input item-selects">
+                      <select name="sex">
+                        <option value="" disabled selected>请选择性别</option>
+                        <option value="0">男</option>
+                        <option value="1">女</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="item-inner">
+                  <div class="item-name">
+                    <label class="item-title">人员类型</label>
+                    <div class="item-selects">
+                      <select name="type" id="userType">
+                        <option value="" disabled selected>请选择人员类型</option>
+                        <option value="0">超级管理员</option>
+                        <option value="1">区域管理员</option>
+                        <option value="2">检测站管理员</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="item-name">
+                    <label class="item-title">联系电话</label>
+                    <div class="item-input">
+                      <input type="text" placeholder="请填写联系电话" name="phone" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="item-inner">
+                  <div class="item-name">
+                    <label class="item-title">身份证号</label>
+                    <div class="item-input">
+                      <input type="text" placeholder="请输入身份证号" name="idCardNum" />
+                    </div>
+                  </div>
+                  <div class="item-name">
+                    <label class="item-title">所属单位</label>
+                    <div class="item-input">
+                      <input type="text" placeholder="请填写单位名称" name="suborUnit" />
+                    </div>
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="item-title">所属区域</label>
+                  <div class="control-list" id="controlList">
+                    <div class="controls">
+                      <select
+                        name="manageProv"
+                        class="provinces input-medium"
+                        onchange="p_change(this, '请选择城市', '请选择区（县）','请选择乡镇（街道）')"
+                        style="width: 100px;"
+                      >
+                        <option value="" disabled selected style="display:none;">请选择省</option>
+                      </select>
+                      <select
+                        name="manageCity"
+                        class="city input-medium"
+                        onchange="c_change(this, '请选择区（县）','请选择乡镇（街道）');handleCDSChange(event)"
+                      >
+                        <option value="" disabled selected style="display:none;">请选择城市</option>
+                      </select>
+                      <select
+                        name="manageDistrict"
+                        class="area input-medium"
+                        onchange="a_change(this,'请选择乡镇（街道）');handleCDSChange(event)"
+                      >
+                        <option value="" disabled selected style="display:none;"
+                          >请选择区（县)</option
+                        >
+                      </select>
+                      <select
+                        name="manageStreet"
+                        class="street input-medium"
+                        onchange="handleCDSChange(event)"
+                      >
+                        <option value="" disabled selected style="display:none;"
+                          >请选择乡镇（街道)</option
+                        >
+                      </select>
+                      <select name="stationId" class="input-medium">
+                        <option value="" disabled selected>请选择检测站</option>
+                      </select>
+                      <span class="addBtn" id="addBtn">+</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item-content-title">操作权限</div>
+              <div class="item-content-body" id="operateLimits-content"></div>
+              <div class="item-content-title">数据权限</div>
+              <div class="item-content-body">
+                <div class="item-inner">
+                  <div class="item-name">
+                    <label class="item-title">登记人员数据</label>
+                    <div class="item-selects">
+                      <select name="select-1" data-menuId="5">
+                        <option value="0">全部数据</option>
+                        <option value="1">所属区域数据</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="item-name">
+                    <label class="item-title">检测人数据</label>
+                    <div class="item-selects">
+                      <select name="select-2" data-menuId="6">
+                        <option value="0">全部数据</option>
+                        <option value="1">所属区域数据</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="item-inner">
+                  <div class="item-name">
+                    <label class="item-title">检测站数据</label>
+                    <div class="item-selects">
+                      <select name="select-3" data-menuId="7">
+                        <option value="0">全部数据</option>
+                        <option value="1">所属区域数据</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div class="btn-group">
+              <button id="btn-cancel" type="button" class="sui-btn btn-default btn-large">
+                取消
+              </button>
+              <button id="btn-submit-form" type="button" class="sui-btn btn-primary btn-large">
+                创建
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 操作权限内容 模版 -->
+    <script type="text/html" id="operateLimits-template">
+      {{each}}
+           <div class="item-checkbox-name">
+              <label class="item-title">{{$value.menuName}}</label>
+              <div class="item-checkbox">
+                 {{each $value.buttonPowerVO item}}
+                <label
+                  class="checkbox-pretty inline"
+                  data-menuId="{{$value.menuId}}"
+                  data-buttonId={{item.buttonId}}>
+                  <input
+                    type="checkbox"
+                    name="checkbox{{item.buttonId}}"
+                  />
+                  <span>{{item.buttonName}}</span>
+                </label>
+                 {{/each}}
+              </div>
+            </div>
+          {{/each}}
+    </script>
+    <script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="//g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+    <script tpe="text/javascript" src="./public/workspace/template-web.js"></script>
+    <script tpe="text/javascript" src="./public/workspace/util.js"></script>
+    <script tpe="text/javascript" src="./public/workspace/config.js"></script>
+    <script tpe="text/javascript" src="./public/watermark.js"></script>
+    <script tpe="text/javascript" src="./public/workspace/userAddEdit.js"></script>
+  <script type="text/javascript" src="userAddEdit.f05b196c.js"></script></body>
+</html>

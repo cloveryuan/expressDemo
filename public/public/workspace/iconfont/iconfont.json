@@ -1,0 +1,93 @@
+{
+  "id": "1624905",
+  "name": "nCoV",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2519094",
+      "name": "飞机",
+      "font_class": "feiji",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "2560061",
+      "name": "删除",
+      "font_class": "shanchu",
+      "unicode": "e6bb",
+      "unicode_decimal": 59067
+    },
+    {
+      "icon_id": "2676665",
+      "name": "放大镜",
+      "font_class": "fangdajing",
+      "unicode": "e6dd",
+      "unicode_decimal": 59101
+    },
+    {
+      "icon_id": "2677035",
+      "name": "导出",
+      "font_class": "daochu",
+      "unicode": "e6df",
+      "unicode_decimal": 59103
+    },
+    {
+      "icon_id": "3751799",
+      "name": "汽车",
+      "font_class": "qiche",
+      "unicode": "e6b1",
+      "unicode_decimal": 59057
+    },
+    {
+      "icon_id": "4092180",
+      "name": "对号面",
+      "font_class": "duihaomian",
+      "unicode": "e760",
+      "unicode_decimal": 59232
+    },
+    {
+      "icon_id": "4092365",
+      "name": "叹号面",
+      "font_class": "tanhaomian",
+      "unicode": "e764",
+      "unicode_decimal": 59236
+    },
+    {
+      "icon_id": "4469772",
+      "name": "提示",
+      "font_class": "tishi",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "9538550",
+      "name": "交通LOGO",
+      "font_class": "jiaotongLOGO",
+      "unicode": "e789",
+      "unicode_decimal": 59273
+    },
+    {
+      "icon_id": "11194459",
+      "name": "火车 (1)",
+      "font_class": "huoche",
+      "unicode": "e73e",
+      "unicode_decimal": 59198
+    },
+    {
+      "icon_id": "11979287",
+      "name": "添加",
+      "font_class": "add-sy",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "12929142",
+      "name": "等待",
+      "font_class": "dengdai",
+      "unicode": "e7c0",
+      "unicode_decimal": 59328
+    }
+  ]
+}

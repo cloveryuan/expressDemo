@@ -1,0 +1,10 @@
+.sui-dropdown .sui-dropdown-menu>li:hover>a {
+    color: #666
+}
+.sui-dropdown .sui-dropdown-menu>li:hover>a:focus,
+.sui-dropdown .sui-dropdown-menu>li:hover>a:hover {
+    color: #fff
+}
+.sui-dropdown .sui-dropdown-menu>li a{
+    line-height: 28px;
+}

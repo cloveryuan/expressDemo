@@ -1,0 +1,2011 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>来徐/在徐人员健康登记系统</title>
+    <link href="//g.alicdn.com/sj/dpl/1.5.1/css/sui.min.css" rel="stylesheet" />
+    <link href="//g.alicdn.com/sj/dpl/1.5.1/css/sui-append.min.css" rel="stylesheet" />
+    <link href="./public/workspace/iconfont/iconfont.css" rel="stylesheet" />
+  <link href="workspace.2492e043.css" rel="stylesheet"></head>
+  <!-- 弹框初始模板 -->
+  <body>
+    <div id="modal-temp-from" style="display:none">
+      <input type="text" name="id" style="display: none;" />
+      <input type="text" name="recordId" style="display: none;" />
+      <input value="0" name="relType" style="display: none;" />
+    
+      <div class="item-inner">
+        <div class="item-name">
+          <label class="item-title label">人员类型</label>
+          <div class="select-content">
+            <div class="item-input item-selects">
+              <select style="width:100%" name="personnelType" id="personnelTypeForModal"></select>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="item-inner">
+        <div class="item-name">
+          <label class="item-title label">姓名</label>
+          <span class="item-input">
+            <input type="text" placeholder="填写您的姓名（必填）" name="uName" />
+          </span>
+        </div>
+        <div class="item-name">
+          <label class="item-title label">电话</label>
+          <span class="item-input">
+            <input type="text" placeholder="填写11位手机号码（必填）" class="" name="userPhone" />
+          </span>
+        </div>
+      </div>
+    
+      <div class="item-inner">
+        <label class="item-title label">证件</label>
+        <div style="display:flex;width:100%;">
+          <div class="select-content">
+            <select style="width:100%;" name='idCardType' id="idCardType" onchange="cardTypeChange(this)">
+              <option value='1'>身份证</option>
+              <option value='3'>台胞证</option>
+              <option value='4'>回乡证</option>
+              <option value='5'>护照</option>
+              <option value='2'>其他</option>
+            </select>
+          </div>
+          <div style="margin-left:8px;width:257px;">
+            <input type="text" placeholder="证件号码" name="idCardNum" />
+          </div>
+    
+        </div>
+      </div>
+    
+      <div class="item-inner" id="nationalityContainer">
+        <label class='item-title label'>国籍</label>
+        <div class="item-input">
+          <input type='text' placeholder="请填写户籍所在国家或地区" name="nationality"/>
+        </div>
+      </div>
+    
+      <div class="item-inner" id="domicileContainer">
+        <label class="item-subtitle label">户籍地</label>
+        <div class="select-content provinceCityArea">
+          <select name="domicileProv" class="provinces" onchange="p_change(this)">
+            <option value="" disabled selected style="display:none;">省（必填）</option>
+          </select>
+          <select name="domicileCity" class="city" onchange="c_change(this)">
+            <option value="" disabled selected style="display:none;">市（必填）</option>
+          </select>
+        </div>
+      </div>
+    
+      <div id="destDatediv" class="item-inner dest-date-inner">
+        <label class="item-subtitle label" id="destDateLabel"></label>
+        <span class="dest-date-content">
+          <input type="text" id="destDate" name="destDate" />
+        </span>
+      </div>
+    
+      <div class="item-inner">
+        <label class="item-title label destProvLabel"></label>
+        <div class="select-content provinceCityArea">
+          <select name="destProv" placeholder="省/直辖市" class="provinces" onchange="p_change(this)">
+          </select>
+          <select name="destCity" placeholder="市" class="city" onchange="c_change(this)">
+          </select>
+          <select name="destDistrict" placeholder="区县" class="area" id="default-area">
+            <option value="" disabled selected style="display:none;">区（必填）</option>
+          </select>
+          <input type="text" placeholder="街道/乡镇（必填）" name="destStreet" />
+          <input type="text" class="addr-destArea" placeholder="小区/村/酒店（必填）" name="destArea" />
+          <input type="text" placeholder="单元号/门牌号码" name="destAddr" />
+        </div>
+      </div>
+    
+      <div class="item-inner" id="departAddress">
+        <label class="item-title label">出发地</label>
+        <div style="display:flex;flex-direction:column;width:100%">
+          <div style="margin-bottom:10px;display:flex;">
+            <label class="item-title label">出发地类型</label>
+            <div class="select-content">
+              <select style="width:100%" name="departCountryType"></select>
+            </div>
+          </div>
+          <div class="select-content" style="margin-bottom:10px;">
+            <select style="width:100%" name="departCountry"></select>
+          </div>
+          <div class="select-content provinceCityArea">
+            <select name="departProv" placeholder="省/直辖市" class="provinces" onchange="p_change(this)">
+              <option value="" disabled selected style="display:none;">省（必填）</option>
+            </select>
+            <select name="departCity" placeholder="市" class="city" onchange="c_change(this)">
+              <option value="" disabled selected style="display:none;">市（必填）</option>
+            </select>
+            <select name="departDistrict" placeholder="区县" class="area">
+              <option value="" disabled selected style="display:none;">区（必填）</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    
+      <div class="item-inner" id="travelTypeContainer">
+        <label class="item-title label">交通方式</label>
+        <div style="display:flex;">
+          <div class="select-content">
+            <select name="travelType" onchange="clearTravelNo()">
+              <option value="1">汽车</option>
+              <option value="2">火车</option>
+              <option value="3">飞机</option>
+              <option value="4">其他</option>
+            </select>
+          </div>
+          <div style="margin-left:8px;width:280px;">
+            <input type="text" placeholder="填写车牌号码/航班号/车次（必填）" name="travelNo" />
+          </div>
+        </div>
+      </div>
+    
+      <div class="item-inner" id="localTravelTypeContainer">
+        <label class="item-title label" style="width:120px">常用交通工具</label>
+        <div style="display:flex;">
+          <div class="select-content">
+            <select name="localTravelType" onchange="clearTravelNo()">
+              <option value="1">私家车</option>
+              <option value="2">公交车</option>
+              <option value="3">电动车</option>
+              <option value='4'>其他</option>
+            </select>
+          </div>
+          <div style="margin-left:8px;width:221px">
+            <input type="text" placeholder="车牌号码/公交车次" name="localTravelNo" />
+          </div>
+        </div>
+      </div>
+    
+      <div class="item-inner">
+        <label class="item-title label" id="objectiveLabel">到达目的</label>
+        <div class="select-content">
+          <div class="item-input item-selects">
+            <select name="objective">
+              <option value="0">工作</option>
+              <option value="1">上学</option>
+              <option value="2">回家</option>
+              <option value="10">其他</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    
+      <div class="item-inner">
+        <label class="item-title label" style="width:120px">工作/上学单位名称</label>
+        <div class="item-input">
+          <input type="text" name="orgName" />
+        </div>
+      </div>
+    
+      <div class="item-inner">
+        <label class="item-title label" style="width:120px">工作/上学单位地址</label>
+        <div class="item-input">
+          <input type="text" name="orgAddress" />
+        </div>
+      </div>
+    
+      <!-- <hr /> -->
+    
+      <!-- <div class="item-inner">
+        <div class="item-name">
+          <label class='item-title label'>健康状况</label>
+          <span class='item-input'>
+            <input type='text' placeholder='' name='healthDescribe' />
+          </span>
+        </div>
+      </div> -->
+    
+      <!-- <div class="item-inner">
+        <div class="item-name">
+          <label class='item-title label'>体温</label>
+          <div class="select-content">
+            <div class='item-input item-selects'>
+              <select style='width:100%' name='dalyTemperature'>
+                <option value='0'>36.0℃以下</option>
+                <option value='1'>36.0-36.5℃</option>
+                <option value='2'>36.6-37.0℃</option>
+                <option value='3'>37.1-37.5℃</option>
+                <option value='4'>37.6-38.0℃</option>
+                <option value='5'>38.1-38.5℃</option>
+                <option value='6'>38.6-39.0℃</option>
+                <option value='7'>39.1-39.5℃</option>
+                <option value='8'>39.6-40.0℃</option>
+                <option value='9'>40.0℃以上</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    
+      <div>
+        <h6>有无发热或咳嗽无力等症状</h6>
+        <div>
+          <span class="radio-content">
+            <span class="radio-wrap">
+              <span>
+                <input type="radio" value="0" name="fever" /><label>有</label>
+              </span>
+              <span>
+                <input type="radio" value="1" name="fever" /><label>无</label>
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
+    
+      <div>
+        <h6 class="labelForGoHb">14天是否去过湖北</h6>
+        <span class="radio-content">
+          <span class="radio-wrap">
+            <span>
+              <input type="radio" value="0" name="goHb" /><label>是</label>
+            </span>
+            <span>
+              <input type="radio" value="1" name="goHb" /><label>否</label>
+            </span>
+          </span>
+        </span>
+      </div>
+    
+      <div>
+        <h6 class="labelForContactHb">14天是否接触过温州/湖北人员</h6>
+        <span class="radio-content">
+          <span class="radio-wrap">
+            <span>
+              <input type="radio" value="0" name="contactHb" /><label>是</label>
+            </span>
+            <span>
+              <input type="radio" value="1" name="contactHb" /><label>否</label>
+            </span>
+          </span>
+        </span>
+      </div>
+    
+      <div>
+        <h6>14天内是否接触过发热咳嗽的人员</h6>
+        <span class="radio-content">
+          <span class="radio-wrap">
+            <span>
+              <input type="radio" value="0" name="contactFever" /><label>是</label>
+            </span>
+            <span>
+              <input type="radio" value="1" name="contactFever" /><label>否</label>
+            </span>
+          </span>
+        </span>
+      </div>
+    
+      <div>
+        <h6>是否被确诊为新冠感染患者</h6>
+        <span class="radio-content">
+          <span class="radio-wrap">
+            <span>
+              <input type="radio" value="0" name="confirmedInfection" /><label>是</label>
+            </span>
+            <span>
+              <input type="radio" value="1" name="confirmedInfection" /><label>否</label>
+            </span>
+          </span>
+        </span>
+      </div>
+    </div>
+    <!-- 核验员管理-编辑-检测站名称 模版 -->
+    <div class="epidemic-modal-staion-template" style="display:none">
+      <div class="item-inner" style="margin-bottom:5px;">
+        <label class='item-title label'>检测站名称</label>
+        <div style="display:flex;width:100%;margin-bottom:10px">
+          <select style="display:none;" name="epidemic-modal-provinces" class="provinces input-medium">
+          </select>
+          <select style="flex:1" name="epidemic-modal-suborCity" class="city input-medium" onchange="c_change(this, '请选择区（县）','请选择乡镇（街道）');epidemicModalCDSChange(event)">
+            <option value="" disabled selected style="display:none;">请选择城市</option>
+          </select>
+          <select style="flex:1" name="epidemic-modal-suborDistrict" class="area input-medium" onchange="a_change(this,'请选择乡镇（街道）');epidemicModalCDSChange(event)">
+            <option value="" disabled selected style="display:none;">请选择区（县)</option>
+          </select>
+          <select style="flex:1" name="epidemic-modal-suborStreet" class="street input-medium" onchange="epidemicModalCDSChange(event)">
+            <option value="" disabled selected style="display:none;">请选择乡镇（街道)</option>
+          </select>
+          <!-- 检测站名称 -->
+          <select style="flex:1" name="epidemic-modal-stationId" class="input-medium">
+            <option value="" disabled selected style="display:none;">请选择检测站</option>
+          </select>
+          <!-- 检测站类型 -->
+          <select style="flex:1" name="epidemic-modal-stationType" class="input-medium" disabled></select>
+          <span 
+          style="line-height:32px;margin-left:5px;cursor:pointer;
+          color:#28a3ef;
+          min-width:24px;" class="epidemic-modal-staion-delete">删除</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 核验员管理-编辑 -->
+    <div id='epidemic-modal-temp-form' style='display:none'>
+      <input type='text' name='recordId' style='display: none;' />
+      <input type='text' name='id' style='display: none;' />
+      <div class="item-inner">
+        <div class="item-name">
+          <label class='item-title label'>人员类型</label>
+          <div class="select-content">
+            <div class='item-input item-selects'>
+              <select style='width:100%' name='userType' id="userType"></select>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="item-inner">
+        <div class="item-name">
+          <label class='item-title label'>姓名</label>
+          <span class='item-input'>
+            <input type='text' placeholder='填写您的姓名（必填）' name='realName' />
+          </span>
+        </div>
+        <div class="item-name">
+          <label class='item-title label'>电话</label>
+          <span class='item-input'>
+            <input type='text' placeholder='填写11位手机号码（必填）' class='' name='phone' readonly/>
+          </span>
+        </div>
+      </div>
+    
+      <div class="item-inner">
+        <label class='item-title label'>身份证</label>
+        <span class='item-input'>
+          <input type='text' placeholder='身份证号（必填）' name='identityCard'>
+        </span>
+      </div>
+    
+      <div class="item-inner">
+        <label class='item-title label'>工作单位</label>
+        <span class='item-input'>
+          <input type='text' name='companyName'>
+        </span>
+      </div>
+    
+      <div class="item-inner">
+        <label class='item-title label'>职位</label>
+        <span class='item-input'>
+          <input type='text' name='job'>
+        </span>
+      </div>
+    
+      <!-- <div class="item-inner">
+        <div class="item-name">
+          <label class='item-title label'>检测站类型</label>
+          <div class="select-content">
+            <div class='item-input item-selects'>
+              <select style='width:100%' name='checkStationType' id="checkStationType"></select>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    
+      <div id="epidemic-modal-station-info"></div>
+      <div>
+        <div class="item-inner">
+          <label class='item-title label'></label>
+          <span class="item-input">
+            <span style="cursor:pointer;
+              color:#28a3ef;" id="epidemic-modal-station-info-add">添加</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- header -->
+  <div class="header">
+    <span class="logo-content icon-pc-logo"></span>
+    <span class="header-title"></span>
+    <span class="header-user"><i class="icon-user"></i>
+      <span class="sui-dropdown"><span class="dropdown-inner">
+          <a role="button" data-toggle="dropdown" href="javascript:void(0);" class="dropdown-toggle"><span
+              class="user-info"></span> <i class="caret"></i></a>
+          <ul role="menu" aria-labelledby="drop1" class="sui-dropdown-menu">
+            <li role="presentation">
+              <a role="menuitems" tabindex="-1" href="/userManagementPage.html">后台管理</a>
+              <a role="menuitem" tabindex="-1" href="javascript:void(0);" id="logout">退出</a>
+            </li>
+          </ul>
+        </span></span>
+    </span>
+  </div>
+  <!-- header -->
+
+  <!-- 筛选条件 -->
+  <div class="page-record">
+    <div class="sui-row statrow" style="display:flex">
+      <div class="span3 stat">
+        <div class="sui-row-fluid">
+          <div class="span6 statsub">
+            <div>
+              <div class="statitem">登记总数</div>
+              <div id="registrationsCounts" class="statmainvalue">--</div>
+            </div>
+          </div>
+          <div class="span6 statsub">
+            <div>
+              <div class="statitem">今日登记</div>
+              <div id="registrationsCountsToday" class="statmainvalue">
+                --
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="span3 stat">
+        <span>
+          <div class="sui-row-fluid">
+            <div class="span3 statsub">
+              <span class="logo-content statlogo statqichelogo"><i
+                  class="iconfont iconqiche logo-content-font"></i></span>
+            </div>
+            <div class="span4 statsub">
+              <div class="statflex">
+                <div class="statitem">登记总数</div>
+                <div id="registrationsCountsCar" class="statvalue">--</div>
+              </div>
+            </div>
+            <div class="span4 statsub">
+              <div class="statflex">
+                <div class="statitem">今日登记</div>
+                <div id="registrationsCountsCarToday" class="statvalue">
+                  --
+                </div>
+              </div>
+            </div>
+          </div>
+        </span>
+      </div>
+      <div class="span3 stat">
+        <span>
+          <div class="sui-row-fluid">
+            <div class="span3 statsub">
+              <span class="logo-content statlogo stathuochelogo"><i
+                  class="iconfont iconhuoche logo-content-font"></i></span>
+            </div>
+            <div class="span4 statsub">
+              <div class="statflex">
+                <div class="statitem">登记总数</div>
+                <div id="registrationsCountsTrain" class="statvalue">--</div>
+              </div>
+            </div>
+            <div class="span4 statsub">
+              <div class="statflex">
+                <div class="statitem">今日登记</div>
+                <div id="registrationsCountsTrainToday" class="statvalue">
+                  --
+                </div>
+              </div>
+            </div>
+          </div>
+        </span>
+      </div>
+      <div class="span3 stat" style="margin-right:0">
+        <span>
+          <div class="sui-row-fluid">
+            <div class="span3 statsub">
+              <span class="logo-content statlogo statfeijilogo"><i
+                  class="iconfont iconfeiji logo-content-font"></i></span>
+            </div>
+            <div class="span4 statsub">
+              <div class="statflex">
+                <div class="statitem">登记总数</div>
+                <div id="registrationsCountsPlane" class="statvalue">--</div>
+              </div>
+            </div>
+            <div class="span4 statsub">
+              <div class="statflex">
+                <div class="statitem">今日登记</div>
+                <div id="registrationsCountsPlaneToday" class="statvalue">
+                  --
+                </div>
+              </div>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
+
+    <!-- <div class="page-list-header">
+      <span class="list-header-title"></span>
+      <a href="javascript:void(0);" class="sui-btn btn-xlarge btn-primary create-btn" onclick="handleViewDetail('create')"><i class="sui-icon icon-touch-plus"></i>新建</a>
+    </div> -->
+    <div class="filter-tab">
+      <ul class="sui-nav nav-tabs nav-xlarge tab-navbar" id="tabNav">
+        <li class="active"><a href="#registerTabContent" onclick="event.preventDefault();onTabNavClick(this)">登记人员管理</a></li>
+        <li><a href="#epidemicTabContent" onclick="event.preventDefault();onTabNavClick(this)">核验员管理</a></li>
+        <li><a href="#stationTabContent" onclick="event.preventDefault();onTabNavClick(this)">检测站管理</a></li>
+        <li><a href="#passCodeTabContent" onclick="event.preventDefault();onTabNavClick(this)">标签管理</a></li>
+        <li><a href="#todayAlertTabContent" onclick="event.preventDefault();onTabNavClick(this)">今日疫情预警</a></li>
+        <li><a href="#statisticsTabContent" onclick="event.preventDefault();onTabNavClick(this)">数据统计管理</a></li>
+      </ul><br>
+    </div>
+    <div class="tab-content" id="tabContent">
+      <!-- 登记人员管理 -->
+      <div id="registerTabContent" class="tab-pane active">
+        <div class="filter-option search-zone register-search">
+          <!-- 详细筛选 -->
+          <div class="detail-filter">
+            <span class="control-group">
+              <label for="personnelType" class="control-label label-title first">人员类型</label>
+              <div class="controls">
+                <span class="sui-dropdown dropdown-bordered input-source select"><span class="dropdown-inner">
+                    <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                      class="dropdown-toggle">
+                      <input id="personnelType" name="personnelType" type="hidden" />
+                      <i class="caret"></i><span></span>
+                    </a>
+                    <ul role="menu" aria-labelledby="drop1" class="sui-dropdown-menu" id="personnelTypeForSearch">
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="">全部</a></li>
+                    </ul>
+                  </span></span>
+              </div>
+            </span>
+            <div id="demo4" class="control-group input-daterange">
+              <label class="control-label label-title">登记时间</label>
+              <div class="controls">
+                <input type="text" class="input-medium input-date startDate" style="width: 100px;"><span>-</span>
+                <input type="text" class="input-medium input-date endDate" style="width: 100px;">
+              </div>
+            </div>
+            <span class="control-group">
+              <label for="source" class="control-label label-title">登记来源</label>
+              <div class="controls">
+                <span class="sui-dropdown dropdown-bordered input-source select">
+                  <span class="dropdown-inner">
+                    <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                       class="dropdown-toggle">
+                      <input value="" id="source" name="source" type="hidden" />
+                      <i class="caret"></i><span></span>
+                    </a>
+                    <ul role="menu" aria-labelledby="drop1" class="sui-dropdown-menu">
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="">全部</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="1">支付宝</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="2">微信</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="3">其他</a></li>
+                      <!-- <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="10">其他</a></li> -->
+                    </ul>
+                  </span>
+                </span>
+              </div>
+            </span>
+
+            <span class="control-group">
+              <label for="healthStatus" class="control-label label-title">健康状况</label>
+              <div class="controls">
+                <span class="sui-dropdown dropdown-bordered input-source select">
+                  <span class="dropdown-inner">
+                    <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                       class="dropdown-toggle">
+                      <input value="" id="healthStatus" name="healthStatus" type="hidden" />
+                      <i class="caret"></i><span></span>
+                    </a>
+                    <ul role="menu" aria-labelledby="drop1" class="sui-dropdown-menu">
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="">全部</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="0">健康</a></li>
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="1">异常</a></li>
+                    </ul>
+                  </span>
+                </span>
+              </div>
+            </span>
+
+            <!-- <span class="control-group">
+                <label for="travelNo" class="control-label label-title">车次/航班/车牌</label>
+                <div class="controls">
+                  <input type="text" id="travelNo" placeholder="" class="input-medium" >
+                </div>
+              </span> -->
+            <div class="detail-filter-content control-group">
+              <span class="control-group">
+                <label for="uname" class="control-label label-title first">姓名</label>
+                <div class="controls">
+                  <input type="text" id="uname" placeholder="" style="width: 80px;" class="input-medium">
+                </div>
+              </span>
+              <span class="control-group">
+                <label for="phone" class="control-label label-title">电话</label>
+                <div class="controls">
+                  <input type="text" id="phone" placeholder="" style="width: 100px;" class="input-medium">
+                </div>
+              </span>
+              <span class="control-group">
+                <label for="idCardNum" class="control-label label-title first">身份证</label>
+                <div class="controls">
+                  <input type="text" id="idCardNum" placeholder="" style="width: 120px;" class="input-medium">
+                </div>
+              </span>
+
+              <!-- <span class="control-group"> dev-0218-relase隐藏 dev-0218需要开启
+                <label for="labelId" class="control-label label-title">人员标签</label>
+                <div class="controls">
+                  <span class="sui-dropdown dropdown-bordered input-source select"><span class="dropdown-inner">
+                      <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                        class="dropdown-toggle">
+                        <input value="" id="labelId" name="labelId" type="hidden" />
+                        <i class="caret"></i><span></span>
+                      </a>
+                      <ul role="menu" aria-labelledby="drop1" class="sui-dropdown-menu" id="labelList">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="">全部</a></li>
+                      </ul>
+                    </span></span>
+                </div>
+              </span> -->
+
+            </div>
+            <!--
+            <div class="detail-filter-content control-group">
+              <span class="control-group">
+                <label for="register-idCardNum" class="control-label label-title first">身份证号</label>
+                <div class="controls">
+                  <input type="text" id="register-idCardNum" placeholder="" style="width: 100px;" class="input-medium">
+                </div>
+              </span>
+              <span class="control-group">
+                <label for="register-plate" class="control-label label-title">车牌号</label>
+                <div class="controls">
+                  <input type="text" id="register-plate" placeholder="" style="width: 100px;" class="input-medium">
+                </div>
+              </span>
+            </div>
+            <div class="detail-filter-content control-group">
+              <label class="control-label label-title">所属区域</label>
+              <div class="controls">
+                <select name="search_provinces" class="provinces input-medium" onchange="p_change(this, '请选择城市', '请选择区（县）','请选择乡镇（街道）')"
+                  style="width: 100px; display: none;">
+                  <option value="" disabled selected style="display:none;">请选择省</option>
+                </select>
+                <select name="search_city" class="city input-medium" onchange="c_change(this, '请选择区（县）','请选择乡镇（街道）')" style="width: 120px">
+                  <option value="" disabled selected style="display:none;">请选择城市</option>
+                </select>
+                <select class="area input-medium" onchange="a_change(this,'请选择乡镇（街道）')" style="width: 120px">
+                  <option value="" disabled selected style="display:none;">请选择区（县)</option>
+                </select>
+                <select class="street input-medium" style="width: 128px">
+                  <option value="" disabled selected style="display:none;">请选择乡镇（街道)</option>
+                </select>
+              </div>
+            </div>
+            -->
+          </div>
+          <span class="control-group button-group">
+            <a href="javascript:void(0);" id="searchBtn" class="sui-btn btn-border filter-button-group"><i
+                class="sui-icon icon-search"></i>搜索</a>
+            <a href="javascript:void(0);" id="resetBtn" class="sui-btn btn-border filter-button-group">重置</a>
+            <a href="javascript:void(0);" id="exportBtn" style="display:none" class="sui-btn btn-border filter-button-group">
+              <i class="sui-icon icon-upload-alt"></i>导出
+            </a>
+          </span>
+        </div>
+        <div class="page-list">
+          <!-- 列表 -->
+          <div class="list">
+            <table class="sui-table">
+              <thead>
+                <tr>
+                  <th class="td-id">登记ID</th>
+                  <th style="width:7%;">姓名</th>
+                  <th style="width:12%;word-break:break-all;">证件号码</th>
+                  <th style="width:7%;word-break:break-all;">添加方式</th>
+                  <th style="width:10%;word-break:break-all;">电话</th>
+                  <th>人员类型</th>
+                  <th>出行方式</th>
+                  <th style="width:7%;">车次/航班/车牌</th>
+                  <th>同行登记</th>
+                  <th style="width:10%;word-break:break-all;">登记时间</th>
+                  <th>登记来源</th>
+                  <th>通行标签</th>
+                  <th>健康状况</th>
+                  <th style="width:8%;">最后核验</th>
+                  <th class="thead-option">操作</th>
+                </tr>
+              </thead>
+              <div class="table-tbody">
+                <tbody class="tbody-list"></tbody>
+              </div>
+            </table>
+          </div>
+          <!-- 分页 -->
+          <div class="pagination-content">
+            <div class="pagination"></div>
+            <div class="pagination-extra">共有<span class="label"></span>条，每页显示
+              <span class="sui-dropdown dropdown-bordered page-size select"><span class="dropdown-inner">
+                  <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                    class="dropdown-toggle">
+                    <input value="20" id="pageSizeChange" name="pageSize" type="hidden" />
+                    <i class="caret"></i><span>20</span>
+                  </a>
+                  <ul role="menu" aria-labelledby="drop2" class="sui-dropdown-menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="10">10</a></li>
+                    <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#" value="20">20</a>
+                    </li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="50">50</a></li>
+                  </ul>
+                </span></span>
+              条</div>
+          </div>
+        </div>
+      </div>
+      <!-- 核验员管理 -->
+      <div id="epidemicTabContent" class="tab-pane">
+        <!-- 筛选 -->
+        <div class="filter-option epidemic-search">
+          <div class="detail-filter">
+            <span class="control-group">
+              <label for="epidemic-name" class="control-label label-title first">姓名</label>
+              <div class="controls">
+                <input type="text" id="epidemic-name" placeholder="" style="width: 100px;" class="input-medium">
+              </div>
+            </span>
+            <span class="control-group">
+              <label for="epidemic-phone" class="control-label label-title">电话</label>
+              <div class="controls">
+                <input type="text" id="epidemic-phone" name="phone" placeholder="" style="width: 100px;"
+                  class="input-medium">
+              </div>
+            </span>
+            <span class="control-group">
+              <label for="epidemic-workplace" class="control-label label-title">工作单位</label>
+              <div class="controls">
+                <input type="text" id="epidemic-workplace" placeholder="" style="width: 100px;" class="input-medium">
+              </div>
+            </span>
+            <span class="control-group">
+              <label for="epidemic-workplace" class="control-label label-title">人员类型</label>
+              <div class="controls">
+                <select style='width:100%' class="input-medium" name='userType' id="epidemic-userType"></select>
+              </div>
+            </span>
+            <!--<span class="control-group">-->
+              <!--<label for="epidemic-workplace" class="control-label label-title">身份证</label>-->
+              <!--<div class="controls">-->
+                <!--<input type="text" id="idCardNo" placeholder="" style="width: 100px;" class="input-medium">-->
+              <!--</div>-->
+            <!--</span>-->
+            <span class="control-group">
+              <label for="epidemic-workplace" class="control-label label-title">所属区域</label>
+              <div class="controls">
+                <select name="suborCity " id="epidemic-suborCity" class="input-medium">
+                  <option disabled selected style="display:none;" value="">请选择城市</option>
+                </select>
+                <select name="suborDistrict " id="epidemic-suborDistrict" class="input-medium">
+                  <option disabled selected style='display:none;' value="">请选择区（县)</option>
+                </select>
+                <select name="suborStreet " id="epidemic-suborStreet" class="input-medium">
+                  <option disabled selected style='display:none;' value="">请选择乡镇（街道）</option>
+                </select>
+              </div>
+            </span>
+            <!--<div id="demo4" class="control-group input-daterange">-->
+              <!--<label class="control-label label-title">时间</label>-->
+              <!--<div class="controls">-->
+                <!--<input type="text" class="input-medium input-date startTime" style="width: 120px;"><span>&nbsp;-</span>-->
+                <!--<input type="text" class="input-medium input-date endTime" style="width: 120px;">-->
+              <!--</div>-->
+            <!--</div>-->
+          </div>
+          <!-- 控制按钮 -->
+          <span class="control-group button-group">
+            <a href="javascript:void(0);" id="epidemic-searchBtn" class="sui-btn btn-border filter-button-group"><i
+                class="sui-icon icon-search"></i>搜索</a>
+            <a href="javascript:void(0);" id="epidemic-resetBtn" class="sui-btn btn-border filter-button-group">重置</a>
+          </span>
+        </div>
+        <div class="page-list">
+          <!-- 列表 -->
+          <div class="list">
+            <table class="sui-table">
+              <thead>
+                <tr>
+                  <th class="td-id">登记ID</th>
+                  <th style="width:10%;">姓名</th>
+                  <th>状态</th>
+                  <th>人员类型</th>
+                  <th style="width:10%;word-break:break-all;">身份证号</th>
+                  <th style="width:10%;word-break:break-all;">电话</th>
+                  <th>工作单位</th>
+                  <th>职务</th>
+                  <!-- <th>检测站类型</th> -->
+                  <th>检测站名称</th>
+                  <th style="width:10%;word-break:break-all;">登记时间</th>
+                  <th>今日核验人数</th>
+                  <th>累计核验人数</th>
+                  <th class="thead-option">操作</th>
+                </tr>
+              </thead>
+              <div class="table-tbody">
+                <tbody class="epidemic-tbody-list"></tbody>
+              </div>
+            </table>
+          </div>
+          <!-- 分页 -->
+          <div class="epidemic-pagination-content">
+            <div class="pagination"></div>
+            <div class="pagination-extra">共有<span class="label"></span>条，每页显示
+              <span class="sui-dropdown dropdown-bordered page-size select"><span class="dropdown-inner">
+                  <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                    class="dropdown-toggle">
+                    <input value="20" id="epidemic-pageSizeChange" name="pageSize" type="hidden" />
+                    <i class="caret"></i><span>20</span>
+                  </a>
+                  <ul role="menu" aria-labelledby="drop2" class="sui-dropdown-menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="10">10</a></li>
+                    <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#" value="20">20</a>
+                    </li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="50">50</a></li>
+                  </ul>
+                </span></span>
+              条</div>
+          </div>
+        </div>
+      </div>
+      <!-- 标签管理 -->
+      <div id="passCodeTabContent" class="tab-pane">
+        <div class="page-list">
+          <div class="pass-rule-list">
+            <h1 style="margin-left:16px;">标签通用规则</h1>
+          </div>
+          <div style="background-color: #f2f2f2;margin:0 16px">
+            <ul class="icon-rule">
+              <li>
+                隔离类标签：优先运算，当命中一个后，停止运算，没有命中则运算"预警类标签。
+              </li>
+              <li>
+                预警类标签：没命中"隔离类"标签，继续运算"通行类"标签，命中一个停止运算。
+              </li>
+              <li>
+                通行类标签：没命中"预警类"标签，继续运算"通行类"标签，命中一个停止运算。
+              </li>
+              <li>
+                同类型标签：显示示优先级高的（1最高）。
+              </li>
+            </ul>
+          </div>
+          <div style="margin-top:8px;margin-bottom: 10px;">
+            <table class="sui-table table-bordered-simple">
+              <thead>
+                <tr>
+                  <th class="tag-type-img">标签图标</th>
+                  <th class="tag-type">标签类型</th>
+                  <th>标签名称</th>
+                  <th class="tag-type">标签显示优先级</th>
+                  <th class="rule-content">发放规则</th>
+                  <th class="tbody-option">状态</th>
+                </tr>
+              </thead>
+              <tbody class="pass-tbody-list"></tbody>
+            </table>
+          </div>
+          <a
+            href="javascript:void(0);"
+            id="addEpidemicBtn"
+            onClick="labelAdmin.addEpidemicShow('add')"
+            class="sui-btn btn-xlarge btn-primary"
+            style="margin: 10px 0 0 10px;display:none"
+            >添加标签</a
+          >
+        </div>
+      </div>
+        <!-- 检测站 -->
+      <div id="stationTabContent" class="tab-pane">
+        <!-- 筛选 -->
+        <div class="filter-option station-search">
+          <div class="detail-filter">
+            <span class="control-group">
+              <label for="stationName" class="control-label label-title first">检测站名称</label>
+              <div class="controls">
+                <input type="text" id="stationName" placeholder="" style="width: 100px;" class="input-medium">
+              </div>
+            </span>
+            <span class="control-group">
+              <label for="manageName" class="control-label label-title">负责人</label>
+              <div class="controls">
+                <input type="text" id="station-manageName" placeholder="" style="width: 100px;" class="input-medium">
+              </div>
+            </span>
+            <span class="control-group">
+              <label for="station-charget-phone" class="control-label label-title">负责人电话</label>
+              <div class="controls">
+                <input type="text" id="station-charger-phone" placeholder="" style="width: 100px;" class="input-medium">
+              </div>
+            </span>
+            <span class="control-group">
+              <label class="control-label label-title">所属区域</label>
+              <div class="controls">
+                <select name="search_provinces" class="provinces input-medium" onchange="p_change(this, '请选择城市', '请选择区（县）','请选择乡镇（街道）')"
+                  style="width: 100px; display: none;">
+                  <option value="" disabled selected style="display:none;">请选择省</option>
+                </select>
+                <select name="search_city" class="city input-medium" onchange="c_change(this, '请选择区（县）','请选择乡镇（街道）')" style="width: 120px">
+                  <option value="" disabled selected style="display:none;">请选择城市</option>
+                </select>
+                <select class="area input-medium" onchange="a_change(this,'请选择乡镇（街道）')" style="width: 120px">
+                  <option value="" disabled selected style="display:none;">请选择区（县)</option>
+                </select>
+                <select class="street input-medium" style="width: 128px">
+                  <option value="" disabled selected style="display:none;">请选择乡镇（街道)</option>
+                </select>
+              </div>
+            </span>
+            <span class="control-group">
+              <label class="control-label label-title">检测站类型</label>
+              <div class="controls">
+                <select style='width:100%' class="input-medium" name='stationType' id="station-stationType"></select>
+              </div>
+            </span>
+          </div>
+          <div class="detail-filter">
+            <!-- 控制按钮 -->
+            <span class="control-group button-group">
+              <a href="javascript:void(0);" id="station-searchBtn" class="sui-btn btn-border filter-button-group">搜索</a>
+              <a href="javascript:void(0);" id="station-resetBtn" class="sui-btn btn-border filter-button-group">重置</a>
+            </span>
+            <span class="control-group button-group">
+              <a href="javascript:void(0);" id="station-addBtn" style="display:none" class="sui-btn btn-border filter-button-group">新增</a>
+              <div class="sui-btn btn-border filter-button-group fileUpload" style="display: none">
+                <input type="file" name="stations" id="stationImport" value="" />
+                <span>检测站批量导入</span>
+              </div>
+              <a href="/api/station/downloadTemplateForUserTest" title="点击开始下载" target="_blank" id="station-importBtn"  class="sui-btn btn-border filter-button-group" style="width: 138px;display:none;">检测站导入模板下载</a>
+            </span>
+          </div>
+        </div>
+        <div class="page-list">
+          <!-- 列表 -->
+          <div class="list">
+            <table class="sui-table">
+              <thead>
+                <tr>
+                  <th class="td-id">登记ID</th>
+                  <th>检测站名称</th>
+                  <th>检测站类型</th>
+                  <th style="width:10%;">负责人</th>
+                  <th style="width:10%;word-break:break-all;">负责人电话</th>
+                  <th>核验员人数</th>
+                  <th>今日检测人次<span style="color:red">（异常人数）</span></th>
+                  <th>累计检测人次<span style="color:red">（异常人数）</span></th>
+                  <th>位置</th>
+                  <th class="thead-option">操作</th>
+                </tr>
+              </thead>
+              <div class="table-tbody">
+                <tbody class="station-tbody-list"></tbody>
+              </div>
+            </table>
+          </div>
+          <!-- 分页 -->
+          <div class="station-pagination-content">
+            <div class="pagination"></div>
+            <div class="pagination-extra">共有<span class="label"></span>条，每页显示
+              <span class="sui-dropdown dropdown-bordered page-size select"><span class="dropdown-inner">
+                  <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                    class="dropdown-toggle">
+                    <input value="20" id="station-pageSizeChange" name="pageSize" type="hidden" />
+                    <i class="caret"></i><span>20</span>
+                  </a>
+                  <ul role="menu" aria-labelledby="drop2" class="sui-dropdown-menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="10">10</a></li>
+                    <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#" value="20">20</a>
+                    </li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="50">50</a></li>
+                  </ul>
+                </span></span>
+              条</div>
+          </div>
+        </div>
+      </div>
+        <!-- 今日疫情预警 -->
+      <div id="todayAlertTabContent" class="tab-pane">
+        <div class="filter-option search-zone todayAlert-search">
+          <!-- 详细筛选 -->
+          <div class="detail-filter">
+            <div class="detail-filter-content control-group">
+              <span class="control-group">
+                <label for="ta-name" class="control-label label-title first">姓名</label>
+                <div class="controls">
+                  <input type="text" id="ta-name" placeholder="" style="width: 100px;" class="input-medium">
+                </div>
+              </span>
+              <span class="control-group">
+                <label for="ta-phone" class="control-label label-title">电话</label>
+                <div class="controls">
+                  <input type="text" id="ta-phone" placeholder="" style="width: 100px;" class="input-medium">
+                </div>
+              </span>
+              <span class="control-group">
+                <label for="ta-idCardNum" class="control-label label-title first">身份证号</label>
+                <div class="controls">
+                  <input type="text" id="ta-idCardNum" placeholder="" style="width: 100px;" class="input-medium">
+                </div>
+              </span>
+              <span class="control-group">
+                <label for="ta-codeColor" class="control-label label-title">码颜色</label>
+                <div class="controls">
+                  <span class="sui-dropdown dropdown-bordered input-source select"><span class="dropdown-inner">
+                      <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                        class="dropdown-toggle">
+                        <input value="" id="ta-codeColor" name="codeColor" type="hidden" />
+                        <i class="caret"></i><span></span>
+                      </a>
+                      <ul role="menu" aria-labelledby="drop1" class="sui-dropdown-menu" id="ta-codeColorList">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="">全部</a></li>
+                      </ul>
+                    </span></span>
+                </div>
+              </span>
+            </div>
+            <div class="detail-filter-content control-group">
+              <span class="control-group">
+                <label for="ta-personnelType" class="control-label label-title first">人员类型</label>
+                <div class="controls">
+                  <span class="sui-dropdown dropdown-bordered input-source select"><span class="dropdown-inner">
+                      <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                        class="dropdown-toggle">
+                        <input id="ta-personnelType" name="ta-personnelType" type="hidden" />
+                        <i class="caret"></i><span></span>
+                      </a>
+                      <ul role="menu" aria-labelledby="drop1" class="sui-dropdown-menu" id="ta-personnelTypeForSearch">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="">全部</a></li>
+                      </ul>
+                    </span></span>
+                </div>
+              </span>
+              <div class="detail-filter-content control-group">
+                <label class="control-label label-title">返程地</label>
+                <div class="controls">
+                  <select name="search_returnType" class="input-medium" onchange="returnType_change(this)" style="width: 100px;">
+                    <option value="" selected>全部</option>
+                    <option value="0">国内出发</option>
+                    <option value="1">国外出发</option>
+                  </select>
+                  <select name="provincesOrCountries" class="input-medium" onchange="$(this).hasClass('provinces') && p_change(this, '请选择城市', '请选择区（县）','请选择乡镇（街道）')" style="width: 100px;display: none">
+                    <option value="" disabled selected style="display:none;">请选择国家/省份</option>
+                  </select>
+                  <select class="city input-medium" onchange="c_change(this, '请选择区（县）','请选择乡镇（街道）')" style="display:none;width: 120px">
+                    <option value="" disabled selected>请选择城市</option>
+                  </select>
+                  <!--onchange="a_change(this,'请选择乡镇（街道）')"-->
+                  <select class="area input-medium"  style="display:none;width: 120px">
+                    <option value="" disabled selected>请选择区（县)</option>
+                  </select>
+                  <!--
+                  <select class="street input-medium" style="width: 128px">
+                    <option value="" disabled selected style="display:none;">请选择乡镇（街道)</option>
+                  </select>
+                  -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="control-group button-group">
+            <a href="javascript:void(0);" id="ta-searchBtn" class="sui-btn btn-border filter-button-group"><i
+                class="sui-icon icon-search"></i>搜索</a>
+            <a href="javascript:void(0);" id="ta-resetBtn" class="sui-btn btn-border filter-button-group">重置</a>
+            <a href="javascript:void(0);" id="ta-colorBtn" class="sui-btn btn-border filter-button-group" style="width: 90px;">颜色码更新</a>
+            <a href="javascript:void(0);" id="ta-exportBtn" style="display:none" class="sui-btn btn-border filter-button-group">
+              <i class="sui-icon icon-upload-alt"></i>导出
+            </a>
+          </span>
+        </div>
+        <div class="page-list">
+          <!-- 列表 -->
+          <div class="list">
+            <table class="sui-table">
+              <thead>
+                <tr>
+                  <th class="td-id">登记ID</th>
+                  <th style="width:7%;">姓名</th>
+                  <th style="width:12%;word-break:break-all;">身份证号</th>
+                  <th style="width:10%;word-break:break-all;">电话</th>
+                  <th>出行方式</th>
+                  <th style="width:7%;">车次/航班/车牌</th>
+                  <!-- <th>委托登记</th> -->
+                  <th style="width:10%;word-break:break-all;">登记时间</th>
+                  <th>登记来源</th>
+                  <th>颜色码</th>
+                  <th>异常原因</th>
+                  <th class="thead-option">操作</th>
+                </tr>
+              </thead>
+              <div class="table-tbody">
+                <tbody class="tbody-list"></tbody>
+              </div>
+            </table>
+          </div>
+          <!-- 分页 -->
+          <div class="pagination-content">
+            <div class="pagination"></div>
+            <div class="pagination-extra">共有<span class="label"></span>条，每页显示
+              <span class="sui-dropdown dropdown-bordered page-size select"><span class="dropdown-inner">
+                  <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                    class="dropdown-toggle">
+                    <input value="20" id="ta-pageSizeChange" name="pageSize" type="hidden" />
+                    <i class="caret"></i><span>20</span>
+                  </a>
+                  <ul role="menu" aria-labelledby="drop2" class="sui-dropdown-menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="10">10</a></li>
+                    <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#" value="20">20</a>
+                    </li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="50">50</a></li>
+                  </ul>
+                </span></span>
+              条</div>
+          </div>
+        </div>
+      </div>
+      <!--数据统计管理-->
+      <div id="statisticsTabContent" class="tab-pane">
+        <div class="page-list">
+          <!-- 列表 -->
+          <div class="list">
+            <table class="sui-table">
+              <thead>
+              <tr>
+                <th><input id="time" type="text" class="input-medium input-date" style="padding: 2px 8px"></th>
+                <th>登记数量</th>
+                <th>来徐数量</th>
+                <th>在徐数量</th>
+                <th>昨日新增</th>
+                <th>今日新增</th>
+              </tr>
+              </thead>
+              <div class="table-tbody">
+                <tbody class="tbody-list" id="statistics-list"></tbody>
+              </div>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- 对话框 详情-->
+  <div id="myModal-create" tabindex="-1" role="dialog" data-hasfoot="false" data-backdrop="static"
+    class="sui-modal hide fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" id="btn-close-x" aria-hidden="true" class="sui-close">
+            ×
+          </button>
+          <h4 id="myModalLabel" class="modal-title">新建登记</h4>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <form id="userForm" style="width:100%"></form>
+          <div id="peer_contain"></div>
+          <div class="item-inner">
+            <a href="javascript:void(0);" id="add-peer"
+              class="sui-btn btn-bordered btn-xlarge btn-primary btn-add-peer"><i
+                class="iconfont iconadd-sy"></i>添加同行人员</a>
+          </div>
+        </div>
+        <div class="modal-footer" id="myModalFooter">
+          <button id="submit-form" type="button" class="sui-btn btn-primary btn-large">
+            确定
+          </button>
+          <button type="button" id="btn-cancel" class="sui-btn btn-default btn-large">
+            取消
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 对话框 添加方式 -->
+  <div id="addWay-create" tabindex="-1" role="dialog" data-hasfoot="false" data-backdrop="static" class="sui-modal hide fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" onclick="addWayCancel()" aria-hidden="true" class="sui-close">
+            ×
+          </button>
+          <h4 class="modal-title">添加人信息</h4>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <table class="sui-table">
+            <thead>
+              <tr>
+                <th>姓名</th>
+                <th>添加方式</th>
+                <th>电话</th>
+                <th>身份证号</th>
+              </tr>
+            </thead>
+            <tbody id="addWay_contain"></tbody>
+          </table>
+        </div>
+        <div class="modal-footer" style="text-align: right;">
+          <button type="button" onclick="addWayCancel()" class="sui-btn btn-default btn-large">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 对话框 健康记录 -->
+  <div id="healthModal-create" tabindex="-1" role="dialog" data-hasfoot="false" data-backdrop="static"
+    class="sui-modal hide fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" id="health-btn-close-x" aria-hidden="true" class="sui-close">
+            ×
+          </button>
+          <h4 id="healthModalLabel" class="modal-title">健康登记记录</h4>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <div id="health_contain"></div>
+        </div>
+        <div class="modal-footer" style="text-align: right;">
+          <button type="button" id="health-btn-cancel" class="sui-btn btn-default btn-large">
+            确定
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 对话框 核验记录 -->
+  <div id="verificationModal-create" tabindex="-1" role="dialog" data-hasfoot="false" data-backdrop="static"
+    class="sui-modal hide fade" data-width="700">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" id="verification-btn-close-x" aria-hidden="true" class="sui-close">
+            ×
+          </button>
+          <h4 id="verificationModalLabel" class="modal-title">核验记录</h4>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <div id="verification_contain">
+            <div class="verificationModal-title modal-body-flex">
+              <div>时间</div>
+              <div>类型</div>
+              <div>核验人</div>
+              <div>结果</div>
+              <div>地点</div>
+            </div>
+            <div class="verificationList"></div>
+          </div>
+        </div>
+        <!--<div class="modal-footer" style="text-align: right;">
+           <div id="verificationModal-pagination">
+            <div class="pagination"></div>
+            <div class="pagination-extra">共有<span class="label"></span>条，每页显示
+              <span class="sui-dropdown dropdown-bordered page-size select"><span class="dropdown-inner">
+                  <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                    class="dropdown-toggle">
+                    <input value="20" id="epidemic-verificationModal-pageSizeChange" name="pageSize" type="hidden" />
+                    <i class="caret"></i><span>20</span>
+                  </a>
+                  <ul role="menu" aria-labelledby="drop2" class="sui-dropdown-menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="10">10</a></li>
+                    <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#" value="20">20</a>
+                    </li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="50">50</a></li>
+                  </ul>
+                </span></span>
+              条</div>
+          </div> 
+        </div>-->
+      </div>
+    </div>
+  </div>
+
+  <!-- 检测站 核检记录弹窗 -->
+  <div id="station-checkModal" tabindex="-1" role="dialog" data-hasfoot="false" data-backdrop="static"
+    class="sui-modal hide fade" data-width="790">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" id="check-btn-close-x" aria-hidden="true" class="sui-close">
+            ×
+          </button>
+          <h4 id="checkModalLabel" class="modal-title">核验记录</h4>
+          <div class="controls input-daterange" style="margin-bottom: 5px;margin-top: 10px;" id="station-record-filter">
+            核验时间：
+            <input type="text" class="input-medium input-date startDate" id="check-startDate" />
+            <span>-</span>
+            <input type="text" class="input-medium input-date endDate" id="check-endDate" />
+
+            <a href="javascript:void(0);" id="station-record-searchBtn" class="sui-btn btn-border filter-button-group"
+              onclick="fetchStationCheckList()">搜索</a>
+            <a href="javascript:void(0);" id="station-record-resetBtn" class="sui-btn btn-border filter-button-group"
+              onclick="resetCheckFilterTimeAndFetch()">重置</a>
+          </div>
+        </div>
+        <div class="modal-body" id="modal-body">
+          <table class="sui-table">
+            <tbody id="check_contain">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="modal-footer">
+          <!-- 分页 -->
+          <div class="check-pagination-content">
+            <div class="pagination"></div>
+            <div class="pagination-extra">共有<span class="label"></span>条，每页显示
+              <span class="sui-dropdown dropdown-bordered page-size select"><span class="dropdown-inner">
+                  <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                    class="dropdown-toggle">
+                    <input value="20" id="check-pageSizeChange" name="pageSize" type="hidden" />
+                    <i class="caret"></i><span>20</span>
+                  </a>
+                  <ul role="menu" aria-labelledby="drop2" class="sui-dropdown-menu">
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="10">10</a></li>
+                    <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#" value="20">20</a>
+                    </li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="50">50</a></li>
+                  </ul>
+                </span></span>
+              条</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 对话框 核验员管理 编辑 -->
+  <div id="epidemic-modal" tabindex="-1" role="dialog" data-hasfoot="false" data-backdrop="static" data-width="1000"
+    class="sui-modal hide fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" id="epidemic-btn-close-x" aria-hidden="true" class="sui-close">×</button>
+          <h4 id="epidemic-modal-label" class="modal-title">核验编辑</h4>
+        </div>
+        <div class="modal-body" id="epidemic-modal-body">
+          <form id='epidemic-form' style='width:100%'></form>
+        </div>
+        <div class="modal-footer" id="epidemic-modal-footer">
+          <button id='epidemic-btn-submit' type="button" class="sui-btn btn-primary btn-large">确定</button>
+          <button type="button" id="epidemic-btn-cancel" class="sui-btn btn-default btn-large">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 对话框 核验员管理 核验记录 -->
+  <div id="epidemic-verificationModal" tabindex="-1" role="dialog" data-hasfoot="false" data-backdrop="static"
+    class="sui-modal hide fade" data-width="700">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" id="epidemic-verificationModal-btn-close-x" aria-hidden="true" class="sui-close">
+            ×
+          </button>
+          <h4 id="epidemic-verificationModal-label" class="modal-title">核验记录</h4>
+          <div class="controls input-daterange" style="margin-bottom: 5px;margin-top: 10px;" id="epidemic-record-filter">
+            <input type="text" class="input-medium input-date startDate" style="width: 100px;" id="epidemic-startDate">
+            <span>-</span>
+            <input type="text" class="input-medium input-date endDate" style="width: 100px;" id="epidemic-endDate">
+
+            <a href="javascript:void(0);" id="epidemic-record-searchBtn" class="sui-btn btn-border filter-button-group"
+               onclick="epidemicHeYanJiLu()">搜索</a>
+            <a href="javascript:void(0);" id="epidemic-record-resetBtn" class="sui-btn btn-border filter-button-group"
+               onclick="resetEpidemicTime()">重置</a>
+          </div>
+        </div>
+        <div class="modal-body" id="epidemic-verificationModal-body">
+          <div id="epidemic-verificationModal-list"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div id="epidemic-verificationModal-pagination">
+          <div class="pagination"></div>
+          <div class="pagination-extra">共有<span class="label"></span>条，每页显示
+            <span class="sui-dropdown dropdown-bordered page-size select"><span class="dropdown-inner">
+                <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                  class="dropdown-toggle">
+                  <input value="20" id="epidemic-verificationModal-pageSizeChange" name="pageSize" type="hidden" />
+                  <i class="caret"></i><span>20</span>
+                </a>
+                <ul role="menu" aria-labelledby="drop2" class="sui-dropdown-menu">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="10">10</a></li>
+                  <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#" value="20">20</a>
+                  </li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="50">50</a></li>
+                </ul>
+              </span></span>
+            条</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 对话框 新增检测站-->
+  <div id="station-create-modal" tabindex="-1" role="dialog" data-hasfoot="false" data-backdrop="static"
+    class="sui-modal hide fade" style="height: auto">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!--div class="modal-header">
+          <button type="button" id="station-btn-close-x" aria-hidden="true" class="sui-close">×</button>
+          <h4 id="station-modal-label" class="modal-title">核验编辑</h4>
+        </div-->
+        <div class="modal-body" id="station-modal-body" style="height: auto; padding-bottom: 60px;">
+          <form id='station-form' style='width:100%'>
+            <div class="item-inner">
+              <div class="item-name">
+                <label class='item-title label'>检测站名称</label>
+                <span class='item-input'>
+                  <input type='text' placeholder='请输入检测站名称' name='stationName' />
+                </span>
+              </div>
+              <div class="item-name">
+                <label class='item-title label'>检测站类型</label>
+                <span class='item-input'>
+                  <select name='stationType' class="input-medium"></select>
+                </span>
+              </div>
+            </div>
+            <div class="item-inner">
+              <div class="item-name">
+                <label class="item-title label">负责人</label>
+                <span class="item-input">
+                  <input type="text" placeholder="请填写负责人姓名" name="manageName" />
+                </span>
+              </div>
+              <div class="item-name">
+                <label class="item-title label">联系电话</label>
+                <span class="item-input">
+                  <input type="text" placeholder="请输入联系电话" class="" name="phone" />
+                </span>
+              </div>
+            </div>
+            <div class="item-inner">
+              <label class="item-subtitle label">所属区域</label>
+              <div class="item-input">
+                <select name="suborProv" class="provinces" onchange="p_change_station(this, '请选择城市', '请选择区（县）','请选择乡镇（街道)')"
+                  style="display: none;">
+                  <option value="" disabled selected style="display:none;">请选择省</option>
+                </select>
+                <select name="suborCity" class="city" onchange="c_change_station(this, '请选择区（县）', '请选择乡镇（街道)')">
+                  <option value="" disabled selected style="display:none;">请选择城市</option>
+                </select>
+                <select name="suborDistrict" class="area" style="margin-left: 12px;"
+                  onchange="a_change_station(this,'请选择乡镇（街道)')">
+                  <option value="" disabled selected style="display:none;">请选择区（县)</option>
+                </select>
+                <select name="suborStreet" class="street" style="margin-left: 12px;">
+                  <option value="" disabled selected style="display:none;">请选择乡镇（街道)</option>
+                </select>
+              </div>
+            </div>
+            <div class="item-inner">
+              <label class="item-subtitle label">归属单位</label>
+              <input class="item-input" name="suborUnit" type="text" placeholder="请填写单位名称" class="" />
+            </div>
+            <div class="item-inner">
+              <label class="item-subtitle label">详细地址</label>
+              <input class="item-input" name="address" type="text" placeholder="请填写详细地址" class="" />
+            </div>
+            <div class="item-inner">
+              <div class="item-name">
+                <label class='item-title label'>检测站经度</label>
+                <span class='item-input'>
+                  <input type='text' placeholder='请输入检测站经度' name='lng' />
+                </span>
+              </div>
+              <div class="item-name">
+                <label class='item-title label'>检测站纬度</label>
+                <span class='item-input'>
+                  <input type='text' placeholder='请输入检测站纬度' name='lat'>
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer" id="station-modal-footer" style="text-align: center">
+          <button id='station-btn-submit' type="button" class="sui-btn btn-primary btn-large">创建</button>
+          <button type="button" id="station-btn-cancel" class="sui-btn btn-default btn-large">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 对话框 检测站管理 检测员列表 -->
+  <div id="station-verificationModal" tabindex="-1" role="dialog" data-hasfoot="false" data-backdrop="static"
+    class="sui-modal hide fade" data-width="700">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="station-verificationModal-label" class="modal-title">
+            <span class="station-verificationModal-label-title">核验员</span>
+            <button type="button" id="station-verificationModal-btn-close-x2" aria-hidden="true" class="sui-close">
+              ×
+            </button>
+            <button type="button" id="station-verificationModal-btn-close-x" aria-hidden="true" class="sui-close">
+              人员调整
+            </button>
+          </h4>
+
+        </div>
+        <div class="modal-body" id="station-verificationModal-body">
+          <div id="station-verificationModal-listTitle">
+            <p class="station-verificationModal-listTitle" >
+              <span style="margin-right: 8px;width: 120px">姓名</span>
+              <span style="margin-right: 8px;width: 80px">人员类型</span>
+              <span style="margin-right: 8px;width: 160px">身份证号</span>
+              <span style="margin-right: 8px;width: 100px">电话</span>
+              <span style="margin-right: 8px;width: 80px">工作单位</span>
+              <span style="margin-right: 8px;width: 80px">职务</span>
+              <span style="margin-right: 8px;width: 160px">登记时间</span>
+            </p>
+          </div>
+          <div id="station-verificationModal-containt" >
+            <div id="station-verificationModal-list"></div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div id="station-verificationModal-pagination">
+          <div class="pagination"></div>
+          <div class="pagination-extra">共有<span class="label"></span>条，每页显示
+            <span class="sui-dropdown dropdown-bordered page-size select"><span class="dropdown-inner">
+                <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+                  class="dropdown-toggle">
+                  <input value="20" id="station-verificationModal-pageSizeChange" name="pageSize" type="hidden" />
+                  <i class="caret"></i><span>20</span>
+                </a>
+                <ul role="menu" aria-labelledby="drop2" class="sui-dropdown-menu">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="10">10</a></li>
+                  <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#" value="20">20</a>
+                  </li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="50">50</a></li>
+                </ul>
+              </span></span>
+            条</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 对话框 检测站管理 批量添加检测员到监测站 -->
+  <div id="checkerToVerificationModal-create" tabindex="-1" role="dialog" data-hasfoot="false" data-backdrop="static"
+    class="sui-modal hide fade" data-width="700">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" id="checkerToVerification-btn-close-x" aria-hidden="true" class="sui-close">
+            ×
+          </button>
+          <h4 id="checkerToVerificationModalLabel" class="modal-title">人员调整</h4>
+        </div>
+        <div class="modal-body checkerToVerification_contain" id="checkerToVerification-modal-body">
+          <div class="checkerToVerification_contain1" id="checkerToVerification_contain1">
+            <h4 class="checkerTitle">核验人员总表</h4>
+              <div>
+                <form class="sui-form form-dark">
+                  <div class="input-control">
+                    <input type="text" id="totalCheckerSearch" class="input-thin"><i id="total-search-icon"
+                      class="sui-icon icon-touch-magnifier"></i>
+                  </div>
+                  <div id="checkerToVerification_checkerList">
+                    <p>
+                      <label class="checkbox-pretty inline checked">
+                        <input type="checkbox" checked="checked">
+                        <span>李三 411111111111111111</span>
+                        <!-- <span>411111111111111111</span> -->
+                      </label>
+                    </p>
+                    <p>
+                      <label class="checkbox-pretty inline">
+                        <input type="checkbox" checked="checked">
+                        <span>李三 411111111111111111</span>
+                        <!-- <span>411111111111111111</span> -->
+                      </label>
+                    </p>
+                    <p>
+                      <label class="checkbox-pretty inline">
+                        <input type="checkbox" checked="checked">
+                        <span>李三 411111111111111111</span>
+                      </label>
+                    </p>
+                  </div>
+                </form>
+              </div>
+          </div>
+          <div class="transformBtn_contain">
+            <div class="toRight">
+              <svg t="1582009158159" class="icon" viewBox="0 0 1280 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="1327" width="200" height="200">
+                <path
+                  d="M740.07331363 141.33502221c13.09501624 0 24.03945947 4.38766503 32.96928381 13.39164711l324.44000245 324.316406C1106.41860453 488.05323768 1110.84952799 498.9976809 1110.84952799 512c0 13.1320951-4.43092346 24.07653833-13.3669281 32.95692468l-324.44000245 324.44000244c-8.93600464 9.01634193-19.87426758 13.3916471-32.96928381 13.3916471-13.2618711 0-24.34844947-4.37530518-33.11759996-13.1320951-8.80622864-8.88656592-13.22479224-19.96078515-13.22479225-33.21647668 0-13.0023191 4.48036218-23.94676232 13.37928796-32.95692467L952.66494265 558.34857177H230.24520364c-12.79220581 0-23.69338989-4.51126075-32.77153038-13.5214231C188.40789262 535.69338989 183.87809244 524.87872338 183.87809244 512c0-12.74894738 4.52980018-23.68721032 13.59558082-32.70355224C206.55799333 470.16268897 217.45917741 465.65142823 230.23902408 465.65142823h722.42591857L707.11020938 220.51692223c-8.89892578-8.88038635-13.37928796-19.95460487-13.37928796-32.95692467 0-13.2618711 4.4185636-24.33609033 13.22479225-33.08670068C715.72486344 145.58673096 726.81144182 141.21142578 740.07331363 141.21142578v0.12359643z"
+                  p-id="1328"></path>
+              </svg>
+            </div>
+            <a href="javascript:void(0);" class="sui-btn btn-bordered btn-xlarge toRight-btn  addCurChecker">添加</a>
+            <a href="javascript:void(0);" class="sui-btn btn-bordered btn-xlarge toLeft-btn removeCurChecker">移除</a>
+            <div class="toLeft">
+              <svg t="1582009074397" class="icon" viewBox="0 0 1280 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="1204" width="200" height="200">
+                <path
+                  d="M554.64194766 141.21142578c12.79220581 0 23.71810889 4.50508117 32.77152968 13.64501953 9.05960107 9.01016235 13.59558082 19.95460487 13.59558153 32.6911924 0 13.1320951-4.57305932 24.07653833-13.76861596 32.95692466l-245.12832642 245.09124757h722.35794044c12.79838538 0 23.69338989 4.50508117 32.81478882 13.64501953 9.02252221 9.01016235 13.56468224 19.94842529 13.56468224 32.69119239 0 12.87872338-4.54216003 23.81698632-13.57086182 32.82714867-9.11521935 9.01016235-20.01022315 13.51524353-32.80242896 13.51524353H342.11829606l245.12214685 245.09124756c9.19555664 9.01016235 13.76861596 19.95460487 13.76861596 32.9507444 0 12.8725431-4.53598046 23.81698632-13.59558153 32.82714867-9.05342078 9.13993836-19.98550415 13.64501953-32.77152968 13.64501953-13.05175781 0-24.03945947-4.50508117-32.95692467-13.38546753L197.2573804 545.01872253C188.34609476 535.62541175 183.87809244 524.54501367 183.87809244 512.06179786c0-12.60681153 4.46800232-23.55125404 13.37928796-32.95074439l324.42764259-324.37820459C530.8620402 145.84628296 541.84356156 141.33502221 554.64194766 141.33502221V141.21142578z"
+                  p-id="1205"></path>
+              </svg>
+            </div>
+
+          </div>
+          <div class="checkerToVerification_contain2" id="checkerToVerification_contain2">
+            <h4 class="verificationTitle">核验站人员</h4>
+              <div>
+                <form class="sui-form form-dark">
+                  <div class="input-control">
+                    <input type="text" id="checkerSearch" class="input-thin"><i
+                      class="sui-icon icon-touch-magnifier"></i>
+                  </div>
+                  <div id="checkerToVerification_verificationList">
+                    <p>
+                      <label class="checkbox-pretty inline checked">
+                        <input type="checkbox" checked="checked"><span>李三 411111111111111111</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label class="checkbox-pretty inline ">
+                        <input type="checkbox" checked="checked"><span>李三 411111111111111111</span>
+                      </label>
+                    </p>
+                    <p>
+                      <label class="checkbox-pretty inline ">
+                        <input type="checkbox" checked="checked"><span>李三 411111111111111111</span>
+                      </label>
+                    </p>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+        <!-- <div class="modal-footer" style="text-align: right;border-top: 0;"> -->
+        <!-- <button type="button" id="checkerToVerication-btn-cancel" class="sui-btn btn-default btn-large">取消</button>
+           <button id='checkerToVerication-btn-submit' type="button" class="sui-btn btn-primary btn-large">确定</button> -->
+        <!-- </div> -->
+
+      </div>
+    </div>
+  </div>
+
+  <!--标签 新增/编辑标签对话框 -->
+  <div
+   id="addModal"
+   tabindex="-1"
+   role="dialog"
+   data-hasfoot="false"
+   class="sui-modal hide fade height"
+   style="height:auto"
+ >
+   <form
+     id="addModalFrom"
+     class="sui-form form-horizontal"
+     novalidate="novalidate"
+   >
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+           <button
+             type="reset"
+             data-dismiss="modal"
+             aria-hidden="true"
+             class="sui-close"
+           >
+             ×
+           </button>
+           <h4 class="modal-title">新增标签</h4>
+         </div>
+         <div class="modal-body">
+           <input type="text" name="labelId" style="display: none;" />
+           <div class="control-group">
+             <label for="labelType" class="control-label">标签类型：</label>
+             <div class="controls">
+               <label class="radio-pretty inline">
+                 <input type="radio" name="labelType" value="0" /><span
+                   >通行类标签</span
+                 >
+               </label>
+               <label class="radio-pretty inline">
+                 <input type="radio" name="labelType" value="1" /><span
+                   >预警类标签</span
+                 >
+               </label>
+               <label class="radio-pretty inline">
+                 <input type="radio" name="labelType" value="2" /><span
+                   >隔离类标签</span
+                 >
+               </label>
+             </div>
+           </div>
+           <div class="control-group">
+             <label for="labelName" class="control-label">标签名称：</label>
+             <div class="controls">
+               <input
+                 type="text"
+                 placeholder="请输入标签名称(最多四个字)"
+                 class="input-block-level"
+                 name="labelName"
+               />
+             </div>
+           </div>
+           <div class="control-group">
+             <label for="iconId" class="control-label">标签样式：</label>
+             <div class="controls iconList">
+             
+             </div>
+           </div>
+           <div class="control-group">
+             <label for="priority" class="control-label">优先等级：</label>
+             <div class="controls">
+               <input
+                 type="text"
+                 placeholder="请输入优先等级"
+                 class="input-block-level"
+                 name="priority"
+               />
+             </div>
+           </div>
+         </div>
+         <div class="modal-footer">
+           <button type="submit" class="sui-btn btn-primary btn-large">
+             确定
+           </button>
+           <button
+             type="button"
+             data-dismiss="modal"
+             class="sui-btn btn-default btn-large"
+           >
+             取消
+           </button>
+         </div>
+       </div>
+     </div>
+   </form>
+  </div>
+  <!--标签  规则设置标签对话框 -->
+  <div
+    id="setModal"
+    tabindex="-1"
+    role="dialog"
+    data-hasfoot="false"
+    class="sui-modal hide fade height"
+  >
+    <form
+      id="setModalFrom"
+      class="sui-form form-horizontal"
+      novalidate="novalidate"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button
+              type="button"
+              data-dismiss="modal"
+              aria-hidden="true"
+              class="sui-close"
+            >
+              ×
+            </button>
+            <h4 class="modal-title">编辑标签</h4>
+          </div>
+          <div class="modal-body">
+            <div class="boxBg">
+              <input type="text" name="labelId" style="display: none;" />
+              <div class="control-group">
+                <label for="personnelType" class="control-label"
+                  >人员类型：</label
+                >
+                <div class="controls"  id="personnelTypeList">
+                  
+                </div>
+              </div>
+              <div class="control-group">
+                <label for="verificationDay" class="control-label"
+                  >核验天数：</label
+                >
+                <div class="controls">
+                  <label class="radio-pretty inline">
+                    <input
+                      type="radio"
+                      name="verificationDay"
+                      value="0-7"
+                    /><span>7天内</span>
+                  </label>
+                  <label class="radio-pretty inline">
+                    <input
+                      type="radio"
+                      name="verificationDay"
+                      value="7-14"
+                    /><span>7天-14天</span>
+                  </label>
+                  <label class="radio-pretty inline">
+                    <input
+                      type="radio"
+                      name="verificationDay"
+                      value="14-99999"
+                    /><span>14天外</span>
+                  </label>
+                  <br/>
+                  <label class="radio-pretty inline" style="color:red">
+                    (返程人员天数限制从返程时间开始计时)
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="dailyAttendance" class="control-label"
+                >连续打卡限制：</label
+              >
+              <div class="controls">
+                <label class="radio-pretty inline">
+                  <input type="radio" name="dailyAttendance" value="0" /><span
+                    >连续正常</span
+                  >
+                </label>
+                <label class="radio-pretty inline">
+                  <input type="radio" name="dailyAttendance" value="1" /><span
+                    >有异常</span
+                  >
+                </label>
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="healthVerification" class="control-label"
+                >健康核验限制：</label
+              >
+              <div class="controls">
+                <label class="radio-pretty inline">
+                  <input
+                    type="radio"
+                    name="healthVerification"
+                    value="0"
+                  /><span>连续正常</span>
+                </label>
+                <label class="radio-pretty inline">
+                  <input
+                    type="radio"
+                    name="healthVerification"
+                    value="1"
+                  /><span>有异常</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="sui-btn btn-primary btn-large">
+              确定
+            </button>
+            <button
+              type="button"
+              data-dismiss="modal"
+              class="sui-btn btn-default btn-large"
+            >
+              取消
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div id="leaveRecord-modal" tabindex="-1" role="dialog" data-hasfoot="false" data-backdrop="static"
+ class="sui-modal hide fade" data-width="700">
+ <div class="modal-dialog">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" id="leaveRecord-modal-btn-close-x" aria-hidden="true" class="sui-close">
+         ×
+       </button>
+       <h4 id="leaveRecord-modal-label" class="modal-title">离徐记录</h4>
+       <!-- <div class="controls input-daterange" style="margin-bottom: 5px;margin-top: 10px;" id="leaveRecord-modal-filter">
+         <input type="text" class="input-medium input-date startDate" style="width: 100px;" id="leaveRecord-modal-startDate">
+         <span>-</span>
+         <input type="text" class="input-medium input-date endDate" style="width: 100px;" id="leaveRecord-modal-endDate">
+
+         <a href="javascript:void(0);" id="leaveRecord-modal-searchBtn" class="sui-btn btn-border filter-button-group"
+            onclick="leaveRecord.showModalAndFetch()">搜索</a>
+         <a href="javascript:void(0);" id="leaveRecord-modal-resetBtn" class="sui-btn btn-border filter-button-group"
+            onclick="leaveRecord.resetFilter()">重置</a>
+       </div> -->
+     </div>
+     <div class="modal-body" id="leaveRecord-modal-body">
+       <div id="leaveRecord-modal-list"></div>
+     </div>
+   </div>
+   <div class="modal-footer">
+     <div id="leaveRecord-modal-pagination">
+       <div class="pagination"></div>
+       <div class="pagination-extra">共有<span class="label"></span>条，每页显示
+         <span class="sui-dropdown dropdown-bordered page-size select"><span class="dropdown-inner">
+             <a role="button" href="javascript:void(0);" data-toggle="dropdown" data-trigger="hover"
+               class="dropdown-toggle">
+               <input value="20" id="leaveRecord-modal-pageSizeChange" name="pageSize" type="hidden" />
+               <i class="caret"></i><span>20</span>
+             </a>
+             <ul role="menu" aria-labelledby="drop2" class="sui-dropdown-menu">
+               <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="10">10</a></li>
+               <li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#" value="20">20</a>
+               </li>
+               <li role="presentation"><a role="menuitem" tabindex="-1" href="#" value="50">50</a></li>
+             </ul>
+           </span></span>
+         条</div>
+     </div>
+   </div>
+ </div>
+</div>
+  <!--标签 标签图标 -->
+  <script type="text/html" id="list-template">
+    {{each}}
+    <tr>
+      <td class="tag-type-img"><img alt="" src="{{$value.iconPath}}" /></td>
+      <td class="tag-type">{{$imports.tagLabelType[$value.labelType]}}</td>
+      <td class="tag-type">{{$value.labelName}}</td>
+      <td class="tag-type">{{$value.priority}}</td>
+      <td class="rule-content">
+        {{if $value.ruleContent.length !== 0}}
+        {{each $value.ruleContent item}}
+        <div>{{item}}</div>
+        {{/each}}
+        {{/if}}
+        {{if $value.ruleContent.length === 0}}
+          <a href="javascript:void(0);" onClick="labelAdmin.setEpidemicShow({{$value}})">添加规则</a>
+        {{/if}}
+      </td>
+      <td class="tbody-option">
+        <div class="passCode-tbody-option-contnet">
+          <div>
+          {{if $value.ruleContent.length !== 0}}
+          <a href="#" data-placement="top" data-trigger="click" data-type="confirm" data-toggle="tooltip" data-ruleId="{{$value.ruleId}}"  data-title="是否确定清除本条标签规则" class="sui-btn btn-link table-option btn-clear">清除规则</a>
+          {{/if}}
+          <a href="javascript:void(0);" class="sui-btn btn-link table-option" onClick="labelAdmin.addEpidemicShow('edit',{{$value}})">编辑</a>
+          <a href="#" data-placement="top" data-trigger="click" data-type="confirm" data-toggle="tooltip" data-labelId="{{$value.labelId}}" data-title="是否确定删除本条标签信息" class="sui-btn btn-link table-option btn-delete">删除</a>
+          </div>
+        </div>
+      </td>
+    </tr>
+    {{/each}}
+  </script>
+  <!--标签 标签列表 -->
+  <script type="text/html" id="iconList-template">
+    {{each}}
+    <label class="radio-pretty inline-block">
+      <input type="radio" name="iconId" value="{{$value.iconId}}" />
+      <span>
+        <img
+          src="{{$value.iconPath}}"
+          style="width: 80px;"
+          alt=""
+        />
+      </span>
+    </label>
+    {{/each}}
+  </script>
+ <!-- 标签 人员类型 -->
+ <script type="text/html" id="personnelTypeList-template">
+  {{each}}
+  <label class="radio-pretty inline">
+    <input type="radio" name="personnelType" value="{{$value.key}}" />
+    <span>{{$value.name}}</span>
+  </label>
+  {{if $value.name === '重点疫区返程人员'}}
+  <a href="#" id="setModalTitle" data-placement="bottom" data-toggle="tooltip" title="{{$imports.personnelTypeTitle}}"><i class="sui-icon icon-pc-question-circle"></i></a>
+  {{/if}}
+  {{/each}}
+</script>
+
+ <!-- 登记人管理 离徐记录 -->
+  <script type="text/javascript" src="//g.alicdn.com/sj/lib/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="//g.alicdn.com/sj/dpl/1.5.1/js/sui.min.js"></script>
+  <script tpe="text/javascript" src="./public/workspace/template-web.js"></script>
+  <script tpe="text/javascript" src="./public/workspace/util.js"></script>
+  <script tpe="text/javascript" src="./public/workspace/qs.js"></script>
+  <script tpe="text/javascript" src="./public/workspace/config.js"></script>
+  <script tpe="text/javascript" src="./public/watermark.js"></script>
+  <script tpe="text/javascript" src="./public/workspace/workspace.js"></script>
+  <script tpe="text/javascript" src="./public/workspace/login.js"></script>
+  <script type="text/javascript" src="workspace.32c8ce95.js"></script></body>
+</html>

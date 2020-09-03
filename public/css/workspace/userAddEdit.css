@@ -1,0 +1,359 @@
+/* header */
+.header {
+  height: 50px;
+  width: 100%;
+  background: #1a1a1a;
+  line-height: 50px;
+  display: flex;
+}
+
+.header-title {
+  font-family: PingFangSC-Medium;
+  font-size: 16px;
+  color: #ffffff;
+  text-align: left;
+  padding-left: 15px;
+}
+
+.header-user {
+  display: block;
+  color: #fff;
+  margin-left: auto;
+  margin-right: 50px;
+  line-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.header-user .icon-user {
+  background-image: url("~assets/workspace/user.png");
+  background-size: contain;
+  height: 32px;
+  width: 32px;
+  display: inline-block;
+}
+
+
+.dropdown-toggle .user-info {
+  display: inline-block;
+  color: #fff;
+}
+
+.logo-content {
+  display: block;
+  width: 50px;
+  height: 50px;
+  background: #ff6a00;
+}
+
+.logo-content.icon-pc-logo {
+  background-image: url("~assets/workspace/logo-pc.png");
+  background-size: contain;
+}
+
+.logo-content-font {
+  color: #fff;
+  text-align: center;
+  font-size: 26px;
+  padding: 12px;
+}
+
+/*wrapper*/
+
+.layout-content{
+  display: flex;
+}
+
+.side-menu{
+  flex: 0 0 222px
+}
+
+.side-menu-item{  
+  line-height: 48px;
+  font-size: 16px;
+  text-align: center;
+  border-bottom: 1px solid #CCC;
+}
+
+.breadcrumb {
+    margin-bottom: 16px;
+}
+.breadcrumb-item:not(:last-of-type)::after {
+    content: ">";
+    position: relative;
+    left: 4px;
+    top: -1px;
+    margin-right: 8px;
+}
+.breadcrumb-item a{
+  color: #333;
+}
+
+.page-record {
+  position: relative;
+   width: calc(100%);
+   min-height: calc(100vh - 82px);
+   padding: 16px 24px;
+   background: #eff1f4;
+}
+
+/* content */
+.item-content {
+  padding: 16px 24px;
+}
+
+.item-content .item-content-title {
+  line-height: 38px;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #111;
+}
+
+.item-inner {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 16px;
+}
+
+.item-name {
+  display: flex;
+  width: 40%;
+}
+
+.item-title {
+  width: 100px;
+  line-height: 32px;
+  margin-right: 8px;
+  text-align: right;
+}
+.item-title::after {
+  content: ":";
+  position: relative;
+  top: -0.5px;
+  margin: 0 8px 0 2px;
+}
+
+.item-inner .item-input,
+.item-inner .item-selects {
+  flex: 1;
+}
+
+.item-input input {
+  width: 100%;
+  height: 32px;
+  line-height: 32px;
+  font-size: 12px;
+  color: #262626;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+.item-selects select {
+  width: 100%;
+  padding: 0 8px;
+  height: 32px;
+  line-height: 32px;
+  border: 0px;
+  font-size: 12px;
+  background: #fff;
+  outline: 1px solid rgb(204, 204, 204);
+  color: #262626;
+}
+
+.item-selects select:focus {
+  border: 0px;
+  outline: 1px solid rgb(204, 204, 204);
+  outline-offset: 0px;
+}
+.item-checkbox-name {
+  display: flex;
+  width: 80%;
+  margin-bottom: 8px;
+}
+.item-checkbox {
+  line-height: 32px;
+}
+.item-checkbox .checkbox-pretty {
+  display: inline-block;
+  width: 90px;
+}
+
+.control-group {
+  display: flex;
+}
+
+.controls {
+  margin-bottom: 12px;
+}
+
+.input-medium {
+  width: 120px;
+  height: 32px;
+  font-size: 12px;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  width: 18%;
+  margin: 48px auto 0;
+}
+
+.addBtn ,.subtrBtn{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  margin-left: 8px;
+  margin-top: 4px;
+  border: 1px solid #666;
+  border-radius: 50%;
+  font-size: 16px;
+  text-align: center;
+  color: #000;
+  cursor: pointer;
+  
+}
+/* message */
+.message-wrap {
+  float: left;
+  position: fixed;
+  top: 54px;
+  z-index: 9999;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.message-content {
+  width: max-content;
+}
+/* message */
+
+/* loading */
+
+.spin-containter {
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 82px);
+}
+
+.loading-modal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: #1d1d1f1a;
+  text-align: center;
+  color: #1890ff;
+  z-index: 9999;
+}
+.ant-spin-dot-spin {
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-animation: antRotate 1.2s infinite linear;
+  animation: antRotate 1.2s infinite linear;
+}
+
+.ant-spin-dot {
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  width: 1em;
+  height: 1em;
+  top: 45%;
+}
+
+.ant-spin-dot-item {
+  position: absolute;
+  display: block;
+  width: 9px;
+  height: 9px;
+  background-color: #1890ff;
+  border-radius: 100%;
+  -webkit-transform: scale(0.75);
+  -ms-transform: scale(0.75);
+  transform: scale(0.75);
+  -webkit-transform-origin: 50% 50%;
+  -ms-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+  opacity: 0.3;
+  -webkit-animation: antSpinMove 1s infinite linear alternate;
+  animation: antSpinMove 1s infinite linear alternate;
+}
+
+.ant-spin-dot-item:nth-child(1) {
+  top: 0;
+  left: 0;
+}
+
+.ant-spin-dot-item:nth-child(2) {
+  top: 0;
+  right: 0;
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.ant-spin-dot-item:nth-child(3) {
+  right: 0;
+  bottom: 0;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+}
+
+.ant-spin-dot-item:nth-child(4) {
+  bottom: 0;
+  left: 0;
+  -webkit-animation-delay: 1.2s;
+  animation-delay: 1.2s;
+}
+
+@-webkit-keyframes antSpinMove {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes antSpinMove {
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes antRotate {
+  to {
+    -webkit-transform: rotate(405deg);
+    transform: rotate(405deg);
+  }
+}
+
+@keyframes antRotate {
+  to {
+    -webkit-transform: rotate(405deg);
+    transform: rotate(405deg);
+  }
+}
+/* loading */
+
+.item-input input[readonly],
+.item-selects select[readonly],
+select[readonly]{
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+.checkbox-pretty[readonly],
+.checkbox-pretty[readonly]>span{
+  cursor: not-allowed;
+}
+.checkbox-pretty[readonly],
+.checkbox-pretty[readonly]>span,
+.checkbox-pretty[readonly]span:before{
+  cursor: not-allowed;
+}
+.checkbox-pretty[readonly]>span::before{
+  color: #666;
+  background-color: #cccccc;
+}
